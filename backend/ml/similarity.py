@@ -5,7 +5,8 @@ Cosine similarity matching on PCA-reduced vectors.
 Supports all 5 position groups: GK, CM, CAM, FWD, WNG.
 """
 
-import json, os
+import json
+import os
 import numpy as np
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
