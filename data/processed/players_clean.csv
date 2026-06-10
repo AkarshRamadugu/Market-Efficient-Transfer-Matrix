@@ -1,0 +1,106 @@
+player_id,player_name,club,league,position_group,age,minutes_played,market_value_m,save_pct,psxg_diff,launched_pass_pct,avg_pass_length,crosses_stopped_pct,sweeper_actions_p90,avg_sweeper_dist,goals_against_p90,pass_completion_pct,passes_progressive_p90,pass_progressive_dist_p90,key_passes_p90,passes_final_third_p90,progressive_carries_p90,xag_p90,passes_long_cmp_pct
+mike-maignan_arsenal,Mike Maignan,Arsenal,Premier League,GK,29,2617,53.2,72.2,10.6,42.2,38.6,70.8,1.63,15.1,1.01,,,,,,,,
+alisson-becker_chelsea,Alisson Becker,Chelsea,Premier League,GK,18,3270,68.1,72.9,1.4,39.9,35.5,48.0,0.76,14.7,1.02,,,,,,,,
+ederson-moraes_liverpool,Ederson Moraes,Liverpool,Premier League,GK,23,2925,59.0,67.2,5.1,37.8,51.1,54.9,1.08,17.6,0.66,,,,,,,,
+thibaut-courtois_manchester-city,Thibaut Courtois,Manchester City,Premier League,GK,28,3229,81.1,65.6,1.3,54.3,36.8,41.5,1.14,13.7,0.93,,,,,,,,
+manuel-neuer_manchester-united,Manuel Neuer,Manchester United,Premier League,GK,25,3067,59.0,73.7,8.8,34.9,38.1,58.3,1.69,15.0,0.86,,,,,,,,
+marc-andre-ter-stegen_tottenham,Marc-Andre ter Stegen,Tottenham,Premier League,GK,31,2877,64.2,65.4,5.8,56.7,44.8,70.0,1.5,22.0,0.72,,,,,,,,
+gianluigi-donnarumma_newcastle,Gianluigi Donnarumma,Newcastle,Premier League,GK,28,2520,86.8,70.0,0.0,42.4,42.1,69.8,1.24,14.4,0.8,,,,,,,,
+keylor-navas_aston-villa,Keylor Navas,Aston Villa,Premier League,GK,29,2888,83.7,75.1,6.5,41.3,44.0,52.4,1.29,18.5,0.84,,,,,,,,
+david-raya_brighton,David Raya,Brighton,Premier League,GK,22,2447,22.6,60.0,-0.4,43.1,42.4,63.9,1.05,14.5,1.09,,,,,,,,
+jordan-pickford_west-ham,Jordan Pickford,West Ham,Premier League,GK,23,2104,44.6,60.0,0.7,37.1,40.0,49.8,0.92,12.9,1.02,,,,,,,,
+emiliano-martinez_real-madrid,Emiliano Martinez,Real Madrid,La Liga,GK,32,3151,32.7,60.0,-0.7,61.8,31.6,50.9,1.66,12.0,0.99,,,,,,,,
+gregor-kobel_barcelona,Gregor Kobel,Barcelona,La Liga,GK,28,2480,42.7,60.0,-1.7,51.4,34.5,51.2,0.95,13.2,0.92,,,,,,,,
+yann-sommer_atletico-madrid,Yann Sommer,Atletico Madrid,La Liga,GK,31,1961,41.9,60.0,5.9,25.7,41.1,47.6,1.23,11.5,0.84,,,,,,,,
+mike-maignan_sevilla,Mike Maignan,Sevilla,La Liga,GK,30,3420,24.8,60.0,4.5,47.1,32.7,55.5,1.4,15.5,0.91,,,,,,,,
+unai-simon_real-sociedad,Unai Simon,Real Sociedad,La Liga,GK,31,2947,33.9,60.0,7.7,42.1,35.5,36.1,0.76,13.8,1.17,,,,,,,,
+wojciech-szczesny_villarreal,Wojciech Szczesny,Villarreal,La Liga,GK,38,2756,43.9,60.0,1.9,33.4,45.9,45.4,0.96,13.8,1.25,,,,,,,,
+pepe-reina_athletic-bilbao,Pepe Reina,Athletic Bilbao,La Liga,GK,24,1791,44.7,60.0,4.6,47.6,32.5,46.7,1.12,12.2,1.13,,,,,,,,
+rui-patricio_valencia,Rui Patricio,Valencia,La Liga,GK,32,2730,30.3,60.0,5.2,33.5,48.3,54.1,0.82,14.6,1.15,,,,,,,,
+lukasz-fabianski_betis,Lukasz Fabianski,Betis,La Liga,GK,30,3381,31.3,60.4,4.0,41.2,44.6,37.3,0.93,13.0,1.12,,,,,,,,
+alex-mccarthy_osasuna,Alex McCarthy,Osasuna,La Liga,GK,26,2748,36.8,60.0,1.0,63.7,40.8,50.5,0.62,18.8,1.47,,,,,,,,
+aaron-ramsdale_ac-milan,Aaron Ramsdale,AC Milan,Serie A,GK,19,2811,9.1,60.0,1.6,35.5,39.3,43.0,0.96,9.6,1.23,,,,,,,,
+bernd-leno_inter-milan,Bernd Leno,Inter Milan,Serie A,GK,31,3420,8.2,60.0,4.0,29.1,51.1,30.7,0.32,11.5,1.67,,,,,,,,
+robert-sanchez_juventus,Robert Sanchez,Juventus,Serie A,GK,26,1951,2.9,60.0,-5.3,39.7,40.8,52.4,0.27,14.3,1.3,,,,,,,,
+dean-henderson_napoli,Dean Henderson,Napoli,Serie A,GK,27,2736,13.8,60.0,-0.6,22.2,47.7,31.8,1.33,13.4,1.31,,,,,,,,
+nick-pope_roma,Nick Pope,Roma,Serie A,GK,29,2326,5.7,60.0,-2.5,37.9,45.1,41.6,0.49,13.8,1.36,,,,,,,,
+alphonse-areola_lazio,Alphonse Areola,Lazio,Serie A,GK,30,2273,12.7,60.0,-4.7,37.0,47.0,53.5,0.57,11.2,1.35,,,,,,,,
+illan-meslier_atalanta,Illan Meslier,Atalanta,Serie A,GK,30,2513,12.3,60.0,-1.4,46.2,43.6,29.8,1.33,10.0,1.06,,,,,,,,
+karl-hein_fiorentina,Karl Hein,Fiorentina,Serie A,GK,25,2694,3.1,60.0,4.3,41.3,44.8,44.1,1.11,11.1,1.34,,,,,,,,
+odysseas-vlachodimos_torino,Odysseas Vlachodimos,Torino,Serie A,GK,22,1855,2.7,60.0,-1.6,48.7,48.9,46.6,0.65,12.0,1.1,,,,,,,,
+matz-sels_bologna,Matz Sels,Bologna,Serie A,GK,33,3162,9.2,60.0,-0.7,27.7,34.9,34.6,0.84,12.1,1.5,,,,,,,,
+bart-verbruggen_bayern-munich,Bart Verbruggen,Bayern Munich,Bundesliga,GK,28,2998,8.0,60.0,1.9,70.8,35.4,46.7,0.76,16.4,1.14,,,,,,,,
+jason-steele_borussia-dortmund,Jason Steele,Borussia Dortmund,Bundesliga,GK,32,1613,2.3,60.0,0.1,51.9,45.8,45.4,1.14,13.4,1.27,,,,,,,,
+sam-johnstone_rb-leipzig,Sam Johnstone,RB Leipzig,Bundesliga,GK,32,2418,13.0,60.0,3.1,43.6,47.4,22.1,0.52,12.0,1.31,,,,,,,,
+mark-flekken_bayer-leverkusen,Mark Flekken,Bayer Leverkusen,Bundesliga,GK,26,1740,13.1,60.0,0.6,57.7,49.2,29.7,0.61,12.5,1.71,,,,,,,,
+oliver-baumann_eintracht-frankfurt,Oliver Baumann,Eintracht Frankfurt,Bundesliga,GK,36,3420,13.8,60.0,1.9,52.7,48.2,28.4,0.91,14.1,0.95,,,,,,,,
+florian-muller_wolfsburg,Florian Muller,Wolfsburg,Bundesliga,GK,28,1397,6.3,60.0,3.0,56.8,42.0,37.9,0.94,11.4,0.97,,,,,,,,
+kevin-trapp_freiburg,Kevin Trapp,Freiburg,Bundesliga,GK,22,3101,4.2,60.0,-3.8,38.8,33.6,37.4,0.99,10.0,1.4,,,,,,,,
+orjan-nyland_union-berlin,Orjan Nyland,Union Berlin,Bundesliga,GK,24,2364,14.0,60.0,-1.6,45.7,26.3,37.0,0.71,13.0,1.54,,,,,,,,
+predrag-rajkovic_mainz,Predrag Rajkovic,Mainz,Bundesliga,GK,27,2567,2.5,60.0,1.3,38.6,36.5,35.2,0.2,9.0,1.57,,,,,,,,
+geronimo-rulli_hoffenheim,Geronimo Rulli,Hoffenheim,Bundesliga,GK,31,2107,6.2,60.0,1.9,33.3,40.5,53.2,0.2,10.4,1.12,,,,,,,,
+rodri_manchester-city,Rodri,Manchester City,Premier League,CM,23,1742,98.8,,,,,,,,,95.7,9.32,179.8,2.94,6.09,3.31,0.296,55.8
+casemiro_manchester-united,Casemiro,Manchester United,Premier League,CM,31,1583,74.5,,,,,,,,,81.3,9.41,180.8,2.26,5.57,3.81,0.197,47.6
+frenkie-de-jong_tottenham,Frenkie de Jong,Tottenham,Premier League,CM,26,1918,143.6,,,,,,,,,90.1,7.92,172.8,1.75,5.31,4.6,0.245,45.2
+jude-bellingham_newcastle,Jude Bellingham,Newcastle,Premier League,CM,29,1966,112.3,,,,,,,,,86.7,6.5,188.4,0.83,5.45,3.75,0.144,57.6
+eduardo-camavinga_aston-villa,Eduardo Camavinga,Aston Villa,Premier League,CM,23,2533,102.4,,,,,,,,,85.6,7.42,210.2,1.91,7.0,3.1,0.246,62.1
+aurelien-tchouameni_brighton,Aurelien Tchouameni,Brighton,Premier League,CM,26,2562,133.3,,,,,,,,,91.0,10.37,176.4,2.26,5.29,4.47,0.204,49.8
+pedri_west-ham,Pedri,West Ham,Premier League,CM,29,2271,80.9,,,,,,,,,93.8,7.39,118.9,1.7,3.76,3.72,0.221,63.7
+gavi_real-madrid,Gavi,Real Madrid,La Liga,CM,29,2566,108.0,,,,,,,,,85.5,8.43,185.0,2.48,4.95,3.68,0.245,60.7
+vitinha_barcelona,Vitinha,Barcelona,La Liga,CM,24,1905,70.0,,,,,,,,,92.3,6.72,182.1,1.96,6.57,4.27,0.272,48.4
+ruben-neves_atletico-madrid,Ruben Neves,Atletico Madrid,La Liga,CM,31,2188,91.1,,,,,,,,,87.3,7.17,208.9,2.69,7.66,4.81,0.138,54.0
+declan-rice_sevilla,Declan Rice,Sevilla,La Liga,CM,18,3420,56.5,,,,,,,,,86.6,5.42,138.4,0.84,6.93,2.9,0.135,49.1
+martin-odegaard_real-sociedad,Martin Odegaard,Real Sociedad,La Liga,CM,27,1702,17.5,,,,,,,,,78.6,8.33,135.5,1.45,3.89,3.42,0.257,47.7
+kevin-de-bruyne_villarreal,Kevin De Bruyne,Villarreal,La Liga,CM,21,1341,22.9,,,,,,,,,87.3,5.61,91.3,0.75,3.6,4.14,0.117,33.5
+bruno-fernandes_athletic-bilbao,Bruno Fernandes,Athletic Bilbao,La Liga,CM,29,2389,18.0,,,,,,,,,88.3,2.73,99.5,1.66,3.04,2.67,0.13,45.1
+toni-kroos_valencia,Toni Kroos,Valencia,La Liga,CM,26,2398,34.8,,,,,,,,,81.7,4.68,129.0,1.13,3.14,2.89,0.117,54.5
+luka-modric_betis,Luka Modric,Betis,La Liga,CM,21,2642,47.2,,,,,,,,,85.2,5.12,125.5,1.66,5.0,1.74,0.112,43.5
+joshua-kimmich_osasuna,Joshua Kimmich,Osasuna,La Liga,CM,28,1709,32.9,,,,,,,,,81.9,6.23,93.3,1.76,3.71,2.5,0.166,47.1
+leon-goretzka_ac-milan,Leon Goretzka,AC Milan,Serie A,CM,23,1843,39.8,,,,,,,,,77.3,8.15,92.8,0.99,5.58,1.4,0.168,34.1
+ilkay-gundogan_inter-milan,Ilkay Gundogan,Inter Milan,Serie A,CM,26,2432,39.4,,,,,,,,,81.8,6.1,128.9,1.95,4.14,2.92,0.112,43.6
+fabian-ruiz_juventus,Fabian Ruiz,Juventus,Serie A,CM,23,2207,21.2,,,,,,,,,78.8,5.65,81.1,1.68,6.41,3.37,0.107,47.7
+manuel-locatelli_napoli,Manuel Locatelli,Napoli,Serie A,CM,27,3187,42.1,,,,,,,,,90.7,7.02,74.8,0.76,3.25,2.82,0.156,38.9
+nicolo-barella_roma,Nicolo Barella,Roma,Serie A,CM,19,1941,16.4,,,,,,,,,89.4,4.17,147.2,0.52,6.5,2.56,0.135,45.3
+sergej-milinkovic-savic_lazio,Sergej Milinkovic-Savic,Lazio,Serie A,CM,23,2585,51.9,,,,,,,,,94.2,5.36,164.5,1.05,3.96,4.22,0.099,56.7
+marcel-sabitzer_atalanta,Marcel Sabitzer,Atalanta,Serie A,CM,21,3150,46.2,,,,,,,,,76.9,7.22,90.4,1.29,5.28,2.9,0.171,48.3
+konrad-laimer_fiorentina,Konrad Laimer,Fiorentina,Serie A,CM,25,1337,53.0,,,,,,,,,85.7,5.81,138.1,0.76,2.7,3.64,0.128,48.8
+alexis-mac-allister_torino,Alexis Mac Allister,Torino,Serie A,CM,20,2850,54.9,,,,,,,,,79.8,7.42,122.2,1.47,4.5,1.26,0.097,51.3
+dominik-szoboszlai_bologna,Dominik Szoboszlai,Bologna,Serie A,CM,26,3245,20.0,,,,,,,,,81.9,7.61,199.0,1.22,3.47,3.96,0.209,40.3
+ryan-gravenberch_bayern-munich,Ryan Gravenberch,Bayern Munich,Bundesliga,CM,21,1764,59.6,,,,,,,,,76.3,3.69,97.9,1.74,3.8,2.14,0.245,39.4
+florentino-luis_borussia-dortmund,Florentino Luis,Borussia Dortmund,Bundesliga,CM,26,2844,58.6,,,,,,,,,85.2,9.18,110.9,1.13,3.25,2.36,0.098,52.3
+joao-palhinha_rb-leipzig,Joao Palhinha,RB Leipzig,Bundesliga,CM,24,1678,19.1,,,,,,,,,87.2,7.07,140.3,1.21,3.15,2.24,0.248,50.6
+youri-tielemans_bayer-leverkusen,Youri Tielemans,Bayer Leverkusen,Bundesliga,CM,23,2228,3.1,,,,,,,,,80.1,4.0,109.8,1.81,2.29,1.16,0.01,31.9
+james-maddison_eintracht-frankfurt,James Maddison,Eintracht Frankfurt,Bundesliga,CM,28,1757,10.6,,,,,,,,,68.0,2.19,126.2,0.97,4.09,0.89,0.01,40.2
+kalvin-phillips_wolfsburg,Kalvin Phillips,Wolfsburg,Bundesliga,CM,29,2855,12.8,,,,,,,,,83.3,5.25,131.5,1.12,2.3,1.92,0.13,31.3
+tyler-adams_freiburg,Tyler Adams,Freiburg,Bundesliga,CM,25,2502,9.0,,,,,,,,,82.3,1.27,90.7,0.84,3.4,0.72,0.145,38.5
+matteo-guendouzi_union-berlin,Matteo Guendouzi,Union Berlin,Bundesliga,CM,25,2695,2.6,,,,,,,,,81.4,3.78,76.6,0.9,3.79,0.98,0.077,32.1
+adrien-rabiot_mainz,Adrien Rabiot,Mainz,Bundesliga,CM,27,2131,4.9,,,,,,,,,78.5,1.0,112.0,1.34,0.5,1.47,0.01,35.8
+paul-pogba_hoffenheim,Paul Pogba,Hoffenheim,Bundesliga,CM,26,2105,13.6,,,,,,,,,73.9,4.81,109.5,0.75,4.72,0.94,0.01,32.2
+n'golo-kante_psg,N'Golo Kante,PSG,Ligue 1,CM,23,2031,13.0,,,,,,,,,79.3,3.16,118.5,0.63,3.11,1.78,0.083,35.4
+wilfried-ndidi_marseille,Wilfried Ndidi,Marseille,Ligue 1,CM,28,3420,5.5,,,,,,,,,79.8,4.56,87.3,1.52,1.69,3.24,0.068,27.0
+nampalys-mendy_lyon,Nampalys Mendy,Lyon,Ligue 1,CM,23,3197,2.5,,,,,,,,,77.9,3.46,84.8,0.46,5.47,1.4,0.121,29.3
+pape-matar-sarr_monaco,Pape Matar Sarr,Monaco,Ligue 1,CM,22,2466,2.4,,,,,,,,,79.0,1.76,135.1,1.24,2.23,1.82,0.08,22.7
+yves-bissouma_lille,Yves Bissouma,Lille,Ligue 1,CM,25,1987,14.2,,,,,,,,,79.8,1.91,119.7,1.11,1.91,1.44,0.084,31.4
+sandro-tonali_rennes,Sandro Tonali,Rennes,Ligue 1,CM,26,2047,8.8,,,,,,,,,81.8,4.09,116.9,1.12,3.76,1.37,0.136,38.4
+davide-frattesi_nice,Davide Frattesi,Nice,Ligue 1,CM,24,2643,10.5,,,,,,,,,74.9,2.71,108.6,1.36,6.06,1.72,0.023,42.3
+samuele-ricci_lens,Samuele Ricci,Lens,Ligue 1,CM,28,1784,13.3,,,,,,,,,78.0,1.0,102.0,1.12,1.92,3.06,0.01,26.7
+sofyan-amrabat_strasbourg,Sofyan Amrabat,Strasbourg,Ligue 1,CM,19,3420,3.7,,,,,,,,,78.6,6.17,41.0,0.51,3.46,1.94,0.097,28.2
+azzedine-ounahi_montpellier,Azzedine Ounahi,Montpellier,Ligue 1,CM,27,2682,4.1,,,,,,,,,76.8,2.49,89.2,1.39,3.15,1.5,0.109,20.0
+khephren-thuram_arsenal,Khephren Thuram,Arsenal,Premier League,CM,27,2439,5.2,,,,,,,,,82.2,1.63,123.2,0.45,0.63,1.58,0.01,38.8
+warren-zaire-emery_chelsea,Warren Zaire-Emery,Chelsea,Premier League,CM,32,3095,5.5,,,,,,,,,77.6,2.98,80.4,1.84,2.96,2.14,0.122,38.7
+manu-kone_liverpool,Manu Kone,Liverpool,Premier League,CM,26,2018,8.7,,,,,,,,,78.5,1.95,84.3,1.02,1.79,1.81,0.077,40.2
+enzo-fernandez_manchester-city,Enzo Fernandez,Manchester City,Premier League,CM,34,2402,14.3,,,,,,,,,83.4,1.94,108.4,0.27,1.75,3.33,0.06,38.5
+moises-caicedo_manchester-united,Moises Caicedo,Manchester United,Premier League,CM,25,3420,10.5,,,,,,,,,82.9,3.96,76.5,0.83,2.74,2.16,0.016,41.7
+romeo-lavia_tottenham,Romeo Lavia,Tottenham,Premier League,CM,27,1972,12.5,,,,,,,,,78.7,3.99,99.6,1.01,4.44,2.16,0.058,43.7
+leandro-trossard_newcastle,Leandro Trossard,Newcastle,Premier League,CM,28,2944,6.9,,,,,,,,,84.2,3.11,93.6,0.29,0.97,0.49,0.026,47.9
+mikel-merino_aston-villa,Mikel Merino,Aston Villa,Premier League,CM,32,3206,9.9,,,,,,,,,76.2,6.88,119.5,0.64,0.5,3.63,0.01,25.5
+carlos-soler_brighton,Carlos Soler,Brighton,Premier League,CM,28,2902,9.0,,,,,,,,,78.0,4.09,84.3,1.08,2.46,1.04,0.026,30.1
+dani-ceballos_west-ham,Dani Ceballos,West Ham,Premier League,CM,29,1400,9.4,,,,,,,,,75.0,4.91,60.5,0.69,3.16,1.03,0.075,27.7
+federico-valverde_real-madrid,Federico Valverde,Real Madrid,La Liga,CM,31,2447,7.3,,,,,,,,,76.7,3.6,104.2,0.87,3.95,2.11,0.056,39.8
+eduardo-camavinga_barcelona,Eduardo Camavinga,Barcelona,La Liga,CM,21,2014,11.6,,,,,,,,,76.1,4.84,81.2,1.42,1.69,2.02,0.028,52.0
+endrick_atletico-madrid,Endrick,Atletico Madrid,La Liga,CM,24,2817,7.3,,,,,,,,,83.9,5.94,43.9,0.93,4.25,0.45,0.086,37.0
+ibrahim-sangare_sevilla,Ibrahim Sangare,Sevilla,La Liga,CM,32,2112,2.9,,,,,,,,,81.3,5.94,78.6,0.7,1.8,0.99,0.038,28.4
+cheikhou-kouyate_real-sociedad,Cheikhou Kouyate,Real Sociedad,La Liga,CM,23,2990,2.8,,,,,,,,,83.1,3.66,103.9,1.86,1.09,0.81,0.105,50.6
+boubacar-kamara_villarreal,Boubacar Kamara,Villarreal,La Liga,CM,28,2553,14.1,,,,,,,,,81.2,2.12,95.1,0.2,2.37,1.08,0.033,45.7
+lesley-ugochukwu_athletic-bilbao,Lesley Ugochukwu,Athletic Bilbao,La Liga,CM,23,1514,11.2,,,,,,,,,79.3,4.67,92.3,1.41,1.6,1.98,0.044,39.5
+carney-chukwuemeka_valencia,Carney Chukwuemeka,Valencia,La Liga,CM,22,1568,4.7,,,,,,,,,71.7,4.26,56.9,0.2,2.97,3.79,0.07,42.9
