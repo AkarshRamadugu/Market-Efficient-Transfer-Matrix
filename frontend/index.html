@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transfer Matrix — Chelsea FC Scouting</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.12.7/Recharts.min.js"></script>
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:       #034694;
+      --blue-dim:   #023070;
+      --blue-glow:  rgba(3,70,148,0.25);
+      --amber:      #f59e0b;
+      --green:      #10b981;
+      --red:        #ef4444;
+      --bg:         #0a0e1a;
+      --surface:    #111827;
+      --surface2:   #1a2235;
+      --border:     #1e2d47;
+      --text:       #e2e8f0;
+      --text-dim:   #64748b;
+      --text-mid:   #94a3b8;
+      --radius:     10px;
+      --font:       'Inter', system-ui, sans-serif;
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; }
+
+    /* ── Layout ───────────────────────────────────────────────── */
+    #app { display: flex; flex-direction: column; min-height: 100vh; }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 15px; letter-spacing: 0.02em; color: var(--text);
+    }
+    .logo-icon {
+      width: 28px; height: 28px; background: var(--blue);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .header-sub { color: var(--text-dim); font-size: 12px; margin-left: auto; }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 0;
+    }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .sidebar {
+      grid-row: 1 / 3;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    /* ── Right panels ────────────────────────────────────────── */
+    .top-panel {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .bottom-panel {
+      padding: 20px 24px;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    /* ── Cards ───────────────────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    /* ── Form elements ───────────────────────────────────────── */
+    label { display: block; font-size: 11px; color: var(--text-dim); margin-bottom: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    select, input[type=range] { width: 100%; }
+    select {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 30px;
+    }
+    select:focus { outline: none; border-color: var(--blue); }
+    input[type=range] {
+      accent-color: var(--blue);
+      cursor: pointer;
+      height: 4px;
+    }
+    .range-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .range-val { font-weight: 700; color: var(--amber); font-size: 15px; }
+
+    /* ── Buttons ─────────────────────────────────────────────── */
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .btn:hover { background: var(--blue-dim); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* ── Target player card ──────────────────────────────────── */
+    .player-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .player-card-name { font-size: 17px; font-weight: 700; margin-bottom: 2px; }
+    .player-card-meta { color: var(--text-dim); font-size: 12px; margin-bottom: 12px; }
+    .player-card-value {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(3,70,148,0.2);
+      border: 1px solid var(--blue);
+      color: #7eb3ff;
+      border-radius: 5px;
+      padding: 3px 9px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .stat-cell { background: var(--surface); border-radius: 6px; padding: 8px 10px; }
+    .stat-cell-label { font-size: 10px; color: var(--text-dim); margin-bottom: 2px; }
+    .stat-cell-val { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    /* ── Match results ───────────────────────────────────────── */
+    .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .match-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.1s;
+      position: relative;
+    }
+    .match-card:hover { border-color: var(--blue); transform: translateY(-1px); }
+    .match-card.selected { border-color: var(--blue); background: rgba(3,70,148,0.08); }
+    .match-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .match-name { font-size: 14px; font-weight: 700; }
+    .match-meta { font-size: 11px; color: var(--text-dim); margin-top: 1px; }
+    .score-badge {
+      display: flex; align-items: center; justify-content: center;
+      width: 46px; height: 46px; border-radius: 50%;
+      font-size: 13px; font-weight: 800;
+      flex-shrink: 0;
+    }
+    .score-high  { background: rgba(16,185,129,0.15); border: 2px solid var(--green); color: var(--green); }
+    .score-mid   { background: rgba(245,158,11,0.15); border: 2px solid var(--amber); color: var(--amber); }
+    .score-low   { background: rgba(100,116,139,0.15); border: 2px solid var(--text-dim); color: var(--text-dim); }
+    .match-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .saving-label { font-size: 12px; color: var(--green); font-weight: 600; }
+    .value-label  { font-size: 12px; color: var(--text-mid); }
+    .steal-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.4);
+      color: var(--amber);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 6px;
+    }
+
+    /* ── Radar ───────────────────────────────────────────────── */
+    .radar-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .radar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .radar-title { font-size: 13px; font-weight: 600; }
+    .radar-legend { display: flex; gap: 16px; font-size: 11px; color: var(--text-dim); }
+    .radar-legend span { display: flex; align-items: center; gap: 5px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Section headers ─────────────────────────────────────── */
+    .section-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-title { font-size: 13px; font-weight: 600; }
+    .section-count {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1px 8px;
+      font-size: 11px; color: var(--text-dim);
+    }
+
+    /* ── Loading / empty states ─────────────────────────────── */
+    .empty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 40px 20px;
+      color: var(--text-dim); text-align: center; gap: 8px;
+    }
+    .empty-icon { font-size: 32px; opacity: 0.4; }
+    .empty-text { font-size: 13px; }
+    .spinner {
+      width: 20px; height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Scrollbar ───────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      main { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .sidebar { border-right: none; border-bottom: 1px solid var(--border); grid-row: auto; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚽</div>
+      Transfer Matrix
+    </div>
+    <span style="color:var(--text-dim);font-size:13px;">PSR-Compliant Player Intelligence</span>
+    <span class="header-sub" id="api-status">Connecting to API…</span>
+  </header>
+
+  <main>
+    <!-- ── SIDEBAR ── -->
+    <aside class="sidebar">
+      <div>
+        <div class="card-title">Position</div>
+        <select id="pos-select">
+          <option value="">All positions</option>
+          <option value="GK">Goalkeeper</option>
+          <option value="CM">Central Midfielder</option>
+          <option value="CAM">Attacking Midfielder</option>
+          <option value="FWD">Forward</option>
+          <option value="WNG">Winger</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="card-title">Target Player</div>
+        <select id="player-select">
+          <option value="">Select a player…</option>
+        </select>
+      </div>
+
+      <div>
+        <div class="range-row">
+          <label style="margin:0">Budget Ceiling</label>
+          <span class="range-val">£<span id="budget-val">30</span>M</span>
+        </div>
+        <input type="range" id="budget-range" min="5" max="120" step="5" value="30" />
+      </div>
+
+      <button class="btn" id="search-btn" disabled>Find Statistical Twins</button>
+
+      <!-- Target player card — shown after selection -->
+      <div id="target-card" style="display:none"></div>
+
+      <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--border)">
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.6">
+          Uses PCA dimensionality reduction + cosine similarity to find
+          statistically equivalent players within your PSR budget.
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── TOP PANEL: Radar ── -->
+    <div class="top-panel">
+      <div id="radar-container">
+        <div class="empty">
+          <div class="empty-icon">📡</div>
+          <div class="empty-text">Select a player and run a search to see the radar comparison</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BOTTOM PANEL: Results ── -->
+    <div class="bottom-panel">
+      <div id="results-container">
+        <div class="empty">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-text">Matches will appear here after your search</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+const API = 'http://localhost:8000';
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let allPlayers  = [];
+let selectedPid = null;
+let selectedMatch = null;
+let matchData   = null;
+
+// ── DOM refs ──────────────────────────────────────────────────────────────────
+const posSelect    = document.getElementById('pos-select');
+const playerSelect = document.getElementById('player-select');
+const budgetRange  = document.getElementById('budget-range');
+const budgetVal    = document.getElementById('budget-val');
+const searchBtn    = document.getElementById('search-btn');
+const targetCard   = document.getElementById('target-card');
+const radarCont    = document.getElementById('radar-container');
+const resultsCont  = document.getElementById('results-container');
+const apiStatus    = document.getElementById('api-status');
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const res = await fetch(`${API}/players`);
+    if (!res.ok) throw new Error('API error');
+    allPlayers = await res.json();
+    apiStatus.textContent = `${allPlayers.length} players loaded`;
+    apiStatus.style.color = 'var(--green)';
+    populatePlayerDropdown();
+  } catch (e) {
+    apiStatus.textContent = 'API offline — start FastAPI server';
+    apiStatus.style.color = 'var(--red)';
+  }
+}
+
+function populatePlayerDropdown() {
+  const pos = posSelect.value;
+  const filtered = pos ? allPlayers.filter(p => p.position_group === pos) : allPlayers;
+  playerSelect.innerHTML = '<option value="">Select a player…</option>';
+  filtered.sort((a,b) => a.player_name.localeCompare(b.player_name))
+    .forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.player_id;
+      opt.textContent = `${p.player_name} — ${p.club}`;
+      playerSelect.appendChild(opt);
+    });
+}
+
+// ── Events ────────────────────────────────────────────────────────────────────
+posSelect.addEventListener('change', () => {
+  populatePlayerDropdown();
+  selectedPid = null;
+  searchBtn.disabled = true;
+  targetCard.style.display = 'none';
+});
+
+playerSelect.addEventListener('change', async () => {
+  selectedPid = playerSelect.value || null;
+  searchBtn.disabled = !selectedPid;
+  if (selectedPid) await loadTargetCard(selectedPid);
+  else targetCard.style.display = 'none';
+});
+
+budgetRange.addEventListener('input', () => {
+  budgetVal.textContent = budgetRange.value;
+});
+
+searchBtn.addEventListener('click', runSearch);
+
+// ── Load target card ──────────────────────────────────────────────────────────
+async function loadTargetCard(pid) {
+  try {
+    const res  = await fetch(`${API}/player/${encodeURIComponent(pid)}`);
+    const data = await res.json();
+    renderTargetCard(data);
+  } catch(e) {
+    targetCard.style.display = 'none';
+  }
+}
+
+function renderTargetCard(p) {
+  const statKeys = Object.keys(p.stats).slice(0, 4);
+  const statsHtml = statKeys.map(k => `
+    <div class="stat-cell">
+      <div class="stat-cell-label">${p.stat_labels?.[k] || k}</div>
+      <div class="stat-cell-val">${p.stats[k]}</div>
+    </div>
+  `).join('');
+
+  targetCard.innerHTML = `
+    <div class="player-card">
+      <div class="player-card-name">${p.player_name}</div>
+      <div class="player-card-meta">${p.club} · ${p.league} · Age ${p.age}</div>
+      <div class="player-card-value">£${p.market_value_m}M <span style="color:var(--text-dim);font-weight:400">est. value</span></div>
+      <div class="stat-grid">${statsHtml}</div>
+    </div>
+  `;
+  targetCard.style.display = 'block';
+}
+
+// ── Run search ────────────────────────────────────────────────────────────────
+async function runSearch() {
+  if (!selectedPid) return;
+  const budget = budgetRange.value;
+
+  searchBtn.disabled = true;
+  searchBtn.textContent = 'Searching…';
+  resultsCont.innerHTML = '<div class="empty"><div class="spinner"></div></div>';
+  radarCont.innerHTML   = '<div class="empty"><div class="spinner"></div></div>';
+
+  try {
+    const res  = await fetch(`${API}/match?player_id=${encodeURIComponent(selectedPid)}&budget=${budget}&n=5`);
+    matchData  = await res.json();
+    selectedMatch = matchData.matches[0] || null;
+
+    renderResults(matchData);
+    if (selectedMatch) renderRadar(matchData.target, selectedMatch);
+  } catch(e) {
+    resultsCont.innerHTML = `<div class="empty"><div class="empty-text" style="color:var(--red)">Search failed — is the API running?</div></div>`;
+  } finally {
+    searchBtn.disabled = false;
+    searchBtn.textContent = 'Find Statistical Twins';
+  }
+}
+
+// ── Render results ────────────────────────────────────────────────────────────
+function renderResults(data) {
+  if (!data.matches.length) {
+    resultsCont.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">💸</div>
+        <div class="empty-text">No players found within £${data.budget_ceiling_m}M budget.<br>Try increasing the ceiling.</div>
+      </div>`;
+    return;
+  }
+
+  const cards = data.matches.map((m, i) => {
+    const sc = m.similarity_pct;
+    const scoreClass = sc >= 75 ? 'score-high' : sc >= 40 ? 'score-mid' : 'score-low';
+    const steal = m.value_anomaly ? `<div class="steal-badge">🔥 PSR Steal — ${m.anomaly_reason || ''}</div>` : '';
+    return `
+      <div class="match-card ${i===0?'selected':''}" data-idx="${i}" onclick="selectMatch(${i})">
+        <div class="match-card-header">
+          <div>
+            <div class="match-name">${m.player_name}</div>
+            <div class="match-meta">${m.club} · ${m.league} · Age ${m.age}</div>
+            ${steal}
+          </div>
+          <div class="score-badge ${scoreClass}">${sc}%</div>
+        </div>
+        <div class="match-footer">
+          <span class="value-label">£${m.market_value_m}M</span>
+          <span class="saving-label">saves £${m.estimated_saving_m}M</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  const header = `
+    <div class="section-header">
+      <span class="section-title">Statistical Twins</span>
+      <span class="section-count">${data.filtered_count} within £${data.budget_ceiling_m}M</span>
+      <span style="margin-left:auto;font-size:11px;color:var(--text-dim)">Click a card to compare on radar</span>
+    </div>
+  `;
+  resultsCont.innerHTML = header + `<div class="results-grid">${cards}</div>`;
+}
+
+function selectMatch(idx) {
+  document.querySelectorAll('.match-card').forEach((c,i) => {
+    c.classList.toggle('selected', i === idx);
+  });
+  selectedMatch = matchData.matches[idx];
+  renderRadar(matchData.target, selectedMatch);
+}
+
+// ── Render radar ──────────────────────────────────────────────────────────────
+function renderRadar(target, match) {
+  // Convert raw stats to 0-100 percentile scale for display
+  const labels = target.stat_labels || {};
+  const keys   = Object.keys(target.stats);
+
+  // Simple min-max across both players for normalisation
+  const data = keys.map(k => {
+    const tv = target.stats[k] || 0;
+    const mv = match.stats[k]  || 0;
+    const mx = Math.max(tv, mv, 0.001);
+    return {
+      stat:   labels[k] || k,
+      target: Math.round((tv / mx) * 100),
+      match:  Math.round((mv / mx) * 100),
+    };
+  });
+
+  radarCont.innerHTML = `
+    <div class="radar-wrap">
+      <div class="radar-header">
+        <span class="radar-title">Stat Profile — ${target.player_name} vs ${match.player_name}</span>
+        <div class="radar-legend">
+          <span><div class="dot" style="background:#3b82f6"></div>${target.player_name}</span>
+          <span><div class="dot" style="background:var(--amber)"></div>${match.player_name}</span>
+        </div>
+      </div>
+      <canvas id="radar-canvas" width="640" height="300"></canvas>
+    </div>
+  `;
+
+  drawRadar(data, target.player_name, match.player_name);
+}
+
+function drawRadar(data, targetName, matchName) {
+  const canvas = document.getElementById('radar-canvas');
+  if (!canvas) return;
+
+  // Set canvas to actual display size
+  canvas.width  = canvas.offsetWidth  || 640;
+  canvas.height = canvas.offsetHeight || 300;
+
+  const ctx  = canvas.getContext('2d');
+  const cx   = canvas.width / 2;
+  const cy   = canvas.height / 2 + 10;
+  const R    = Math.min(cx, cy) - 55;
+  const n    = data.length;
+  const step = (Math.PI * 2) / n;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw grid rings
+  for (let ring = 1; ring <= 4; ring++) {
+    const r = R * ring / 4;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const a = step * i - Math.PI / 2;
+      const x = cx + r * Math.cos(a);
+      const y = cy + r * Math.sin(a);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Draw spokes
+  for (let i = 0; i < n; i++) {
+    const a = step * i - Math.PI / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(a), cy + R * Math.sin(a));
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.stroke();
+  }
+
+  // Draw labels
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '10px Inter, system-ui, sans-serif';
+  ctx.textAlign = 'center';
+  for (let i = 0; i < n; i++) {
+    const a = step * i - Math.PI / 2;
+    const lx = cx + (R + 22) * Math.cos(a);
+    const ly = cy + (R + 22) * Math.sin(a);
+    ctx.fillText(data[i].stat, lx, ly + 4);
+  }
+
+  // Draw player polygons
+  function polygon(key, color, alpha) {
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const idx = i % n;
+      const val = data[idx][key] / 100;
+      const a   = step * idx - Math.PI / 2;
+      const x   = cx + R * val * Math.cos(a);
+      const y   = cy + R * val * Math.sin(a);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle   = color.replace('1)', `${alpha})`);
+    ctx.strokeStyle = color;
+    ctx.lineWidth   = 2;
+    ctx.fill();
+    ctx.stroke();
+  }
+
+  polygon('target', 'rgba(59,130,246,1)',  0.15);
+  polygon('match',  'rgba(245,158,11,1)',  0.12);
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
