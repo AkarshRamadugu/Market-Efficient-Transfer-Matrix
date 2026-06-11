@@ -56,10 +56,14 @@ header{
   outline: none;
   border-color: var(--blue-hi);
 }
-.hd-status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)}
+.hd-status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid);margin-right:15px}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--text-dim);flex-shrink:0;transition:background 0.3s}
 .status-dot.live{background:var(--green);box-shadow:0 0 6px var(--green)}
 .status-dot.error{background:var(--red)}
+.settings-btn {
+  background: none; border: none; color: var(--text-mid); font-size: 18px; cursor: pointer; transition: transform 0.2s;
+}
+.settings-btn:hover { transform: rotate(45deg); color: var(--text); }
 
 /* BODY */
 .body{flex:1;display:flex;overflow:hidden}
@@ -144,18 +148,19 @@ canvas#radar{display:block;width:100%;height:240px}
 .rh-title{font-family:var(--font-data);font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim)}
 .rh-pill{background:var(--navy3);border:1px solid var(--border);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--text-dim)}
 .rh-hint{margin-left:auto;font-size:11px;color:var(--text-dim)}
-.cards-row{display:flex;gap:12px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}
+.cards-row{display:flex;gap:12px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px;align-items:flex-start}
 .cards-row::-webkit-scrollbar{height:3px}
 .cards-row::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
 /* MATCH CARD */
 .m-card{
-  flex-shrink:0;width:210px;
+  flex-shrink:0;width:240px;
   background:var(--navy2);border:1px solid var(--border);
   border-radius:10px;padding:16px;cursor:pointer;
   transition:border-color 0.2s,background 0.2s,transform 0.15s;
   position:relative;overflow:hidden;
   animation:fadeup 0.2s ease both;
+  display:flex; flex-direction:column;
 }
 .m-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background 0.2s}
 .m-card:hover{border-color:var(--border-hi);transform:translateY(-2px)}
@@ -172,7 +177,57 @@ canvas#radar{display:block;width:100%;height:240px}
   background:var(--amber-dim);border:1px solid rgba(245,158,11,0.35);
   color:var(--amber);border-radius:4px;padding:3px 7px;
   font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-top:8px;
+  align-self: flex-start;
 }
+.ai-btn {
+  width: 100%; margin-top: 14px; padding: 9px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text);
+  border-radius: 6px; font-family: var(--font-ui); font-size: 11px; font-weight: 600; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.ai-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--border-hi); }
+.ai-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.ai-report {
+  margin-top: 12px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 6px;
+  font-size: 12px; line-height: 1.5; color: var(--text-mid); border-left: 2px solid var(--blue-hi);
+  word-wrap: break-word; white-space: normal;
+}
+
+/* SETTINGS DRAWER */
+.drawer-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 90; display: none;
+  opacity: 0; transition: opacity 0.3s;
+}
+.drawer-overlay.open { display: block; opacity: 1; }
+.drawer {
+  position: fixed; top: 0; right: -340px; width: 340px; height: 100%;
+  background: var(--navy2); border-left: 1px solid var(--border);
+  z-index: 100; transition: right 0.3s ease; padding: 24px;
+  display: flex; flex-direction: column; gap: 24px; box-shadow: -4px 0 20px rgba(0,0,0,0.5);
+}
+.drawer.open { right: 0; }
+.drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+.drawer-title { font-family: var(--font-data); font-size: 20px; font-weight: 700; letter-spacing:0.02em; color: var(--text); text-transform: uppercase; }
+.drawer-close { background: none; border: none; color: var(--text-dim); font-size: 24px; cursor: pointer; line-height:1; }
+.drawer-close:hover { color: var(--text); }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-dim); }
+.radio-group { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+.radio-label { display: flex; align-items: center; gap: 10px; font-size: 13px; cursor: pointer; color:var(--text); }
+input[type="radio"] { accent-color: var(--blue-hi); width:16px; height:16px; cursor: pointer; }
+input[type="password"], input[type="text"] {
+  background: var(--navy3); border: 1px solid var(--border); color: var(--text);
+  border-radius: 6px; padding: 10px 12px; font-size: 13px; font-family: var(--font-ui);
+}
+input[type="password"]:focus, input[type="text"]:focus { outline: none; border-color: var(--blue-hi); }
+.btn-save {
+  margin-top:auto; padding: 12px; background: var(--blue); color: #fff; border: none; border-radius: 8px;
+  font-family: var(--font-data); font-size: 16px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; cursor: pointer; transition: background 0.15s;
+}
+.btn-save:hover { background: var(--blue-hi); }
+.save-msg { font-size: 11px; color: var(--green); text-align: center; display: none; margin-top: -10px; }
 
 /* EMPTY / LOADER */
 .empty{
@@ -210,7 +265,45 @@ canvas#radar{display:block;width:100%;height:240px}
       <div class="status-dot" id="status-dot"></div>
       <span id="status-text" data-i18n="connecting">Connecting…</span>
     </div>
+
+    <button class="settings-btn" id="settings-btn" aria-label="Settings" title="AI Settings">⚙️</button>
   </header>
+
+  <!-- SETTINGS DRAWER -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <div class="drawer" id="settings-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title" data-i18n="settingsTitle">AI Configuration</div>
+      <button class="drawer-close" id="drawer-close">&times;</button>
+    </div>
+    
+    <div class="form-group">
+      <div class="form-label" data-i18n="aiProvider">AI Provider</div>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="ai-provider" value="gemini" checked>
+          <span data-i18n="geminiBYOK">Gemini (BYOK)</span>
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="ai-provider" value="ollama">
+          <span data-i18n="ollamaLocal">Ollama (Local)</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" id="gemini-settings">
+      <div class="form-label" data-i18n="apiKeyLabel">API Key</div>
+      <input type="password" id="gemini-key" placeholder="Paste your Gemini API key..." data-i18n-placeholder="apiKeyPlaceholder">
+    </div>
+
+    <div class="form-group" id="ollama-settings" style="display:none">
+      <div class="form-label" data-i18n="ollamaModelLabel">Ollama Model</div>
+      <input type="text" id="ollama-model" value="llama3" placeholder="e.g. llama3">
+    </div>
+
+    <button class="btn-save" id="btn-save-settings" data-i18n="saveSettings">Save Settings</button>
+    <div class="save-msg" id="save-msg" data-i18n="settingsSaved">Settings saved!</div>
+  </div>
 
   <div class="body">
     <aside class="rail">
@@ -317,7 +410,20 @@ const translations = {
     withinBudget: "{0} within £{1}M",
     saves: "saves £{0}M",
     psrSteal: "🔥 PSR Steal",
-    noData: "No data"
+    noData: "No data",
+    settingsTitle: "AI Configuration",
+    aiProvider: "AI Provider",
+    geminiBYOK: "Gemini (BYOK)",
+    ollamaLocal: "Ollama (Local)",
+    apiKeyLabel: "API Key",
+    apiKeyPlaceholder: "Paste your Gemini API key...",
+    ollamaModelLabel: "Ollama Model",
+    saveSettings: "Save Settings",
+    settingsSaved: "Settings saved!",
+    generateScoutReport: "Generate Scout Report",
+    generatingReport: "Generating...",
+    errorNoApiKey: "Please configure your Gemini API Key in Settings.",
+    errorGeneration: "Error generating report: "
   },
   te: {
     appTitle: "ట్రాన్స్‌ఫర్ మ్యాట్రిక్స్ — PSR స్కౌటింగ్ ఇంటెలిజెన్స్",
@@ -358,7 +464,20 @@ const translations = {
     withinBudget: "£{1}M లోపల {0}",
     saves: "£{0}M ఆదా అవుతుంది",
     psrSteal: "🔥 PSR డీల్",
-    noData: "డేటా లేదు"
+    noData: "డేటా లేదు",
+    settingsTitle: "AI కాన్ఫిగరేషన్",
+    aiProvider: "AI ప్రొవైడర్",
+    geminiBYOK: "Gemini (BYOK)",
+    ollamaLocal: "Ollama (Local)",
+    apiKeyLabel: "API కీ",
+    apiKeyPlaceholder: "మీ Gemini API కీని అతికించండి...",
+    ollamaModelLabel: "Ollama మోడల్",
+    saveSettings: "సేవ్ చేయండి",
+    settingsSaved: "సెట్టింగులు సేవ్ చేయబడ్డాయి!",
+    generateScoutReport: "స్కౌట్ నివేదికను సృష్టించండి",
+    generatingReport: "సృష్టిస్తోంది...",
+    errorNoApiKey: "దయచేసి సెట్టింగ్‌లలో మీ Gemini API కీని కాన్ఫిగర్ చేయండి.",
+    errorGeneration: "నివేదికను రూపొందించడంలో లోపం: "
   },
   hi: {
     appTitle: "ट्रांसफर मैट्रिक्स — पीएसआर स्काउटिंग इंटेलिजेंस",
@@ -399,7 +518,20 @@ const translations = {
     withinBudget: "£{1}M के भीतर {0}",
     saves: "£{0}M बचाता है",
     psrSteal: "🔥 पीएसआर डील",
-    noData: "कोई डेटा नहीं"
+    noData: "कोई डेटा नहीं",
+    settingsTitle: "AI कॉन्फ़िगरेशन",
+    aiProvider: "AI प्रदाता",
+    geminiBYOK: "Gemini (BYOK)",
+    ollamaLocal: "Ollama (Local)",
+    apiKeyLabel: "API कुंजी",
+    apiKeyPlaceholder: "अपनी Gemini API कुंजी पेस्ट करें...",
+    ollamaModelLabel: "Ollama मॉडल",
+    saveSettings: "सेटिंग्स सहेजें",
+    settingsSaved: "सेटिंग्स सहेजी गईं!",
+    generateScoutReport: "स्काउट रिपोर्ट बनाएँ",
+    generatingReport: "बना रहा है...",
+    errorNoApiKey: "कृपया सेटिंग्स में अपनी Gemini API कुंजी कॉन्फ़िगर करें।",
+    errorGeneration: "रिपोर्ट बनाने में त्रुटि: "
   }
 };
 
@@ -424,8 +556,14 @@ function updateUI() {
       }
     }
   });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(translations[currentLang][key]) {
+      el.placeholder = translations[currentLang][key];
+    }
+  });
   
-  // Re-run population to translate select options correctly, keeping the values intact
   if(allPlayers.length > 0) {
     statusText.textContent = t('statusLive', allPlayers.length);
   } else if (!API) {
@@ -434,7 +572,6 @@ function updateUI() {
     statusText.textContent = t('statusOffline');
   }
 
-  // Update button if it's currently showing loading state
   if(searchBtn.disabled && !selectedPid) {
      searchBtn.textContent = t('btnSearch');
   } else if (searchBtn.disabled && selectedPid) {
@@ -444,12 +581,11 @@ function updateUI() {
   }
 
   if(selectedPid && targetCard.style.display !== 'none') {
-     loadTargetCard(selectedPid, true); // re-render without fetching
+     loadTargetCard(selectedPid, true);
   }
   
   if (matchData) {
-     renderResults(matchData);
-     if(matchData.matches.length) renderRadar(matchData.target, matchData.matches[selectedIdx]);
+     renderResults(matchData, true); // re-render matches cleanly
   }
 }
 
@@ -458,6 +594,64 @@ document.getElementById('lang-select').addEventListener('change', (e) => {
   updateUI();
 });
 
+// SETTINGS LOGIC
+const aiSettings = JSON.parse(localStorage.getItem('aiSettings') || '{"provider":"gemini","apiKey":"","model":"llama3"}');
+const settingsBtn = document.getElementById('settings-btn');
+const drawerOverlay = document.getElementById('drawer-overlay');
+const settingsDrawer = document.getElementById('settings-drawer');
+const drawerClose = document.getElementById('drawer-close');
+const radioProvider = document.querySelectorAll('input[name="ai-provider"]');
+const geminiGroup = document.getElementById('gemini-settings');
+const ollamaGroup = document.getElementById('ollama-settings');
+const inputGeminiKey = document.getElementById('gemini-key');
+const inputOllamaModel = document.getElementById('ollama-model');
+const btnSaveSettings = document.getElementById('btn-save-settings');
+const saveMsg = document.getElementById('save-msg');
+
+function applySettingsToForm() {
+  document.querySelector(`input[name="ai-provider"][value="${aiSettings.provider}"]`).checked = true;
+  inputGeminiKey.value = aiSettings.apiKey;
+  inputOllamaModel.value = aiSettings.model;
+  toggleProviderViews();
+}
+
+function toggleProviderViews() {
+  const provider = document.querySelector('input[name="ai-provider"]:checked').value;
+  if(provider === 'gemini') {
+    geminiGroup.style.display = 'flex';
+    ollamaGroup.style.display = 'none';
+  } else {
+    geminiGroup.style.display = 'none';
+    ollamaGroup.style.display = 'flex';
+  }
+}
+
+radioProvider.forEach(r => r.addEventListener('change', toggleProviderViews));
+
+settingsBtn.addEventListener('click', () => {
+  applySettingsToForm();
+  drawerOverlay.classList.add('open');
+  settingsDrawer.classList.add('open');
+});
+
+function closeDrawer() {
+  drawerOverlay.classList.remove('open');
+  settingsDrawer.classList.remove('open');
+  saveMsg.style.display = 'none';
+}
+drawerClose.addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+
+btnSaveSettings.addEventListener('click', () => {
+  aiSettings.provider = document.querySelector('input[name="ai-provider"]:checked').value;
+  aiSettings.apiKey = inputGeminiKey.value.trim();
+  aiSettings.model = inputOllamaModel.value.trim() || 'llama3';
+  localStorage.setItem('aiSettings', JSON.stringify(aiSettings));
+  saveMsg.style.display = 'block';
+  setTimeout(() => saveMsg.style.display = 'none', 2000);
+});
+
+// API LOGIC
 const API='';
 let allPlayers=[],selectedPid=null,selectedIdx=0,matchData=null,lastTargetData=null;
 const posSelect=document.getElementById('pos-select');
@@ -473,6 +667,7 @@ const radarWrap=document.getElementById('radar-wrap');
 const rzLegend=document.getElementById('rz-legend');
 
 async function init(){
+  applySettingsToForm();
   if(!API){statusDot.className='status-dot error';statusText.textContent=t('statusDemo');return}
   try{
     allPlayers=await fetch(`${API}/players`).then(r=>r.json());
@@ -543,19 +738,21 @@ async function runSearch(){
   }
 }
 
-function renderResults(data){
+function renderResults(data, skipAnimation=false){
   if(!data.matches.length){
     resultsCont.innerHTML=`<div class="empty"><div class="empty-icon">💸</div><div class="empty-title" data-i18n="noMatches">${t('noMatches')}</div><div class="empty-sub" data-i18n="increaseCeiling">${t('increaseCeiling')}</div></div>`;
     return;
   }
   const header=`<div class="rh"><span class="rh-title" data-i18n="statTwins">${t('statTwins')}</span><span class="rh-pill">${t('withinBudget', data.filtered_count, data.budget_ceiling_m)}</span><span class="rh-hint" data-i18n="clickCompare">${t('clickCompare')}</span></div>`;
   const cards=data.matches.map((m,i)=>`
-    <div class="m-card ${i===0?'active':''}" onclick="selectMatch(${i})" style="animation-delay:${i*0.06}s">
+    <div class="m-card ${i===selectedIdx?'active':''}" onclick="selectMatch(${i})" style="animation-delay:${skipAnimation?0:i*0.06}s">
       <div class="gauge-wrap"><canvas class="gauge" id="gauge-${i}" width="80" height="80"></canvas></div>
       <div class="m-name">${m.player_name}</div>
       <div class="m-club">${m.club} · ${m.league}</div>
       <div class="m-row"><span class="m-val">£${m.market_value_m}M</span><span class="m-saving">${t('saves', m.estimated_saving_m)}</span></div>
       ${m.value_anomaly?`<div class="steal-tag">${t('psrSteal')}</div>`:''}
+      <button class="ai-btn" onclick="generateScoutReport(${i}, event)">${t('generateScoutReport')}</button>
+      <div class="ai-report" id="ai-report-${i}" style="display:none"></div>
     </div>`).join('');
   resultsCont.innerHTML=header+`<div class="cards-row">${cards}</div>`;
   requestAnimationFrame(()=>data.matches.forEach((m,i)=>drawGauge(i,m.similarity_pct)));
@@ -565,6 +762,58 @@ function selectMatch(idx){
   document.querySelectorAll('.m-card').forEach((c,i)=>c.classList.toggle('active',i===idx));
   selectedIdx=idx;
   renderRadar(matchData.target,matchData.matches[idx]);
+}
+
+async function generateScoutReport(idx, e) {
+  e.stopPropagation(); 
+  const match = matchData.matches[idx];
+  const target = matchData.target;
+  const btn = e.target;
+  const reportDiv = document.getElementById(`ai-report-${idx}`);
+  
+  if(!aiSettings.apiKey && aiSettings.provider === 'gemini') {
+    alert(t('errorNoApiKey'));
+    settingsBtn.click();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = t('generatingReport');
+  reportDiv.style.display = 'block';
+  reportDiv.innerHTML = '<div class="spinner" style="width:14px;height:14px;margin:10px auto"></div>';
+
+  const prompt = `Write a 3-sentence scouting narrative comparing ${match.player_name} to ${target.player_name}. Mention their ${match.similarity_pct}% similarity, highlight a key stat difference, and note that ${match.player_name} saves £${match.estimated_saving_m}M in PSR headroom compared to ${target.player_name}'s value. Be professional, concise, and analytical.`;
+
+  try {
+    if (aiSettings.provider === 'gemini') {
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${aiSettings.apiKey}`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ contents: [{parts:[{text: prompt}]}] })
+      });
+      const data = await res.json();
+      if(data.error) throw new Error(data.error.message);
+      reportDiv.textContent = data.candidates[0].content.parts[0].text;
+    } else {
+      const res = await fetch(`http://localhost:11434/api/generate`, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          model: aiSettings.model || 'llama3',
+          prompt: prompt,
+          stream: false
+        })
+      });
+      const data = await res.json();
+      if(data.error) throw new Error(data.error);
+      reportDiv.textContent = data.response;
+    }
+  } catch (err) {
+    reportDiv.textContent = t('errorGeneration') + err.message;
+  } finally {
+    btn.textContent = t('generateScoutReport');
+    btn.disabled = false;
+  }
 }
 
 function drawGauge(idx,pct){

@@ -10,6 +10,9 @@ Exposes three endpoints the frontend consumes:
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
 from ml.similarity import get_top_matches, get_player_detail, get_all_players
 from ml.financial import apply_financial_filter, build_match_response
 
@@ -50,3 +53,15 @@ def match(
         return build_match_response(target, raw, filtered, budget)
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+# Mount frontend
+frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+if os.path.exists(frontend_path):
+    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+
+@app.get("/")
+def serve_frontend():
+    index_file = os.path.join(frontend_path, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
+    return {"message": "Frontend not found."}
