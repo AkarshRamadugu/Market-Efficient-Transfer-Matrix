@@ -55,7 +55,8 @@ def match(
         raise HTTPException(status_code=404, detail=str(e))
 
 # Mount frontend
-frontend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+frontend_path = os.path.join(base_dir, "frontend")
 if os.path.exists(frontend_path):
     app.mount("/static", StaticFiles(directory=frontend_path), name="static")
 
