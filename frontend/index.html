@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Transfer Matrix — PSR Scouting Intelligence</title>
+<title data-i18n="appTitle">Transfer Matrix — PSR Scouting Intelligence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -39,7 +39,24 @@ header{
 }
 .hd-divider{width:1px;height:24px;background:var(--border);margin:0 20px}
 .hd-tag{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim)}
-.hd-status{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)}
+.lang-select {
+  background: var(--navy3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 5px;
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: 15px;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  width: 95px;
+}
+.lang-select:focus {
+  outline: none;
+  border-color: var(--blue-hi);
+}
+.hd-status{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text-mid)}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--text-dim);flex-shrink:0;transition:background 0.3s}
 .status-dot.live{background:var(--green);box-shadow:0 0 6px var(--green)}
 .status-dot.error{background:var(--red)}
@@ -179,53 +196,60 @@ canvas#radar{display:block;width:100%;height:240px}
 <body>
 <div id="app">
   <header>
-    <div class="hd-logo"><div class="hd-logo-mark">⚽</div>Transfer Matrix</div>
+    <div class="hd-logo"><div class="hd-logo-mark">⚽</div><span data-i18n="logoText">Transfer Matrix</span></div>
     <div class="hd-divider"></div>
-    <span class="hd-tag">PSR Scouting Intelligence</span>
+    <span class="hd-tag" data-i18n="appTag">PSR Scouting Intelligence</span>
+    
+    <select id="lang-select" class="lang-select">
+      <option value="en">English</option>
+      <option value="hi">हिन्दी (Hindi)</option>
+      <option value="te">తెలుగు (Telugu)</option>
+    </select>
+
     <div class="hd-status">
       <div class="status-dot" id="status-dot"></div>
-      <span id="status-text">Connecting…</span>
+      <span id="status-text" data-i18n="connecting">Connecting…</span>
     </div>
   </header>
 
   <div class="body">
     <aside class="rail">
       <div>
-        <div class="rail-label">Position</div>
+        <div class="rail-label" data-i18n="posLabel">Position</div>
         <div class="sel-wrap">
           <select id="pos-select">
-            <option value="">All positions</option>
-            <option value="GK">Goalkeeper</option>
-            <option value="CM">Central Midfielder</option>
-            <option value="CAM">Attacking Midfielder</option>
-            <option value="FWD">Forward</option>
-            <option value="WNG">Winger</option>
+            <option value="" data-i18n="posAll">All positions</option>
+            <option value="GK" data-i18n="posGK">Goalkeeper</option>
+            <option value="CM" data-i18n="posCM">Central Midfielder</option>
+            <option value="CAM" data-i18n="posCAM">Attacking Midfielder</option>
+            <option value="FWD" data-i18n="posFWD">Forward</option>
+            <option value="WNG" data-i18n="posWNG">Winger</option>
           </select>
         </div>
       </div>
       <div>
-        <div class="rail-label">Target Player</div>
+        <div class="rail-label" data-i18n="targetLabel">Target Player</div>
         <div class="sel-wrap">
-          <select id="player-select"><option value="">Select a player…</option></select>
+          <select id="player-select"><option value="" data-i18n="selectPlayer">Select a player…</option></select>
         </div>
       </div>
       <div>
-        <div class="rail-label">PSR Budget Ceiling</div>
+        <div class="rail-label" data-i18n="budgetLabel">PSR Budget Ceiling</div>
         <div class="budget-row">
           <span class="budget-num">£<span id="budget-val">30</span>M</span>
-          <span style="font-size:11px;color:var(--text-dim)">max fee</span>
+          <span style="font-size:11px;color:var(--text-dim)" data-i18n="maxFee">max fee</span>
         </div>
         <input type="range" id="budget-range" min="5" max="120" step="5" value="30"/>
       </div>
-      <button class="btn-search" id="search-btn" disabled>Find Statistical Twins</button>
+      <button class="btn-search" id="search-btn" disabled data-i18n="btnSearch">Find Statistical Twins</button>
       <div id="target-card" style="display:none"></div>
-      <div class="rail-footer">PCA dimensionality reduction + cosine similarity across 230 players in the Big 5 leagues. Budget-filtered for PSR compliance.</div>
+      <div class="rail-footer" data-i18n="footerText">PCA dimensionality reduction + cosine similarity across 230 players in the Big 5 leagues. Budget-filtered for PSR compliance.</div>
     </aside>
 
     <div class="main">
       <div class="radar-zone">
         <div class="rz-header">
-          <span class="rz-title">Stat Profile Comparison</span>
+          <span class="rz-title" data-i18n="statProfileTitle">Stat Profile Comparison</span>
           <div class="rz-legend" id="rz-legend" style="display:none">
             <div class="rz-leg-item"><div class="rz-dot" style="background:#3b82f6"></div><span id="rl-target">—</span></div>
             <div class="rz-leg-item"><div class="rz-dot" style="background:var(--amber)"></div><span id="rl-match">—</span></div>
@@ -234,8 +258,8 @@ canvas#radar{display:block;width:100%;height:240px}
         <div id="radar-wrap">
           <div class="empty" style="height:200px">
             <div class="empty-icon">◎</div>
-            <div class="empty-title">No comparison loaded</div>
-            <div class="empty-sub">Run a search to overlay two stat profiles on the radar</div>
+            <div class="empty-title" data-i18n="noCompLoaded">No comparison loaded</div>
+            <div class="empty-sub" data-i18n="runSearchOverlay">Run a search to overlay two stat profiles on the radar</div>
           </div>
         </div>
       </div>
@@ -243,8 +267,8 @@ canvas#radar{display:block;width:100%;height:240px}
         <div id="results-cont">
           <div class="empty">
             <div class="empty-icon">⬡</div>
-            <div class="empty-title">Awaiting search</div>
-            <div class="empty-sub">Choose a target player, set your PSR ceiling, and find their statistical twins</div>
+            <div class="empty-title" data-i18n="awaitingSearch">Awaiting search</div>
+            <div class="empty-sub" data-i18n="chooseTarget">Choose a target player, set your PSR ceiling, and find their statistical twins</div>
           </div>
         </div>
       </div>
@@ -253,8 +277,189 @@ canvas#radar{display:block;width:100%;height:240px}
 </div>
 
 <script>
+const translations = {
+  en: {
+    appTitle: "Transfer Matrix — PSR Scouting Intelligence",
+    logoText: "Transfer Matrix",
+    appTag: "PSR Scouting Intelligence",
+    connecting: "Connecting…",
+    posLabel: "Position",
+    targetLabel: "Target Player",
+    budgetLabel: "PSR Budget Ceiling",
+    maxFee: "max fee",
+    btnSearch: "Find Statistical Twins",
+    footerText: "PCA dimensionality reduction + cosine similarity across 230 players in the Big 5 leagues. Budget-filtered for PSR compliance.",
+    statProfileTitle: "Stat Profile Comparison",
+    noCompLoaded: "No comparison loaded",
+    runSearchOverlay: "Run a search to overlay two stat profiles on the radar",
+    awaitingSearch: "Awaiting search",
+    chooseTarget: "Choose a target player, set your PSR ceiling, and find their statistical twins",
+    posAll: "All positions",
+    posGK: "Goalkeeper",
+    posCM: "Central Midfielder",
+    posCAM: "Attacking Midfielder",
+    posFWD: "Forward",
+    posWNG: "Winger",
+    selectPlayer: "Select a player…",
+    statusDemo: "Demo mode — API not connected",
+    statusLive: "{0} players · live",
+    statusOffline: "API offline",
+    estValue: "est. value",
+    age: "Age {0}",
+    searching: "Searching…",
+    runningPca: "Running PCA + Cosine Similarity…",
+    searchFailed: "Search failed",
+    apiRunning: "Is the API running?",
+    noMatches: "No matches within budget",
+    increaseCeiling: "Increase the PSR ceiling to see more candidates",
+    statTwins: "Statistical Twins",
+    clickCompare: "Click a card to compare",
+    withinBudget: "{0} within £{1}M",
+    saves: "saves £{0}M",
+    psrSteal: "🔥 PSR Steal",
+    noData: "No data"
+  },
+  te: {
+    appTitle: "ట్రాన్స్‌ఫర్ మ్యాట్రిక్స్ — PSR స్కౌటింగ్ ఇంటెలిజెన్స్",
+    logoText: "ట్రాన్స్‌ఫర్ మ్యాట్రిక్స్",
+    appTag: "PSR స్కౌటింగ్ ఇంటెలిజెన్స్",
+    connecting: "కనెక్ట్ అవుతోంది…",
+    posLabel: "స్థానం",
+    targetLabel: "లక్ష్య ఆటగాడు",
+    budgetLabel: "PSR బడ్జెట్ పరిమితి",
+    maxFee: "గరిష్ట రుసుము",
+    btnSearch: "గణాంక కవలలను కనుగొనండి",
+    footerText: "పెద్ద 5 లీగ్‌లలోని 230 మంది ఆటగాళ్ళలో PCA డైమెన్షనాలిటీ రిడక్షన్ + కొసైన్ సిమిలారిటీ. PSR సమ్మతి కోసం బడ్జెట్ ఫిల్టర్ చేయబడింది.",
+    statProfileTitle: "గణాంక ప్రొఫైల్ పోలిక",
+    noCompLoaded: "ఎలాంటి పోలిక లోడ్ కాలేదు",
+    runSearchOverlay: "రాడార్‌పై రెండు గణాంక ప్రొఫైల్‌లను అతివ్యాప్తి చేయడానికి శోధనను అమలు చేయండి",
+    awaitingSearch: "శోధన కోసం వేచి ఉంది",
+    chooseTarget: "లక్ష్య ఆటగాడిని ఎంచుకోండి, మీ PSR పరిమితిని సెట్ చేయండి మరియు వారి గణాంక కవలలను కనుగొనండి",
+    posAll: "అన్ని స్థానాలు",
+    posGK: "గోల్‌కీపర్",
+    posCM: "సెంట్రల్ మిడ్‌ఫీల్డర్",
+    posCAM: "అటాకింగ్ మిడ్‌ఫీల్డర్",
+    posFWD: "ఫార్వర్డ్",
+    posWNG: "వింగర్",
+    selectPlayer: "ఆటగాడిని ఎంచుకోండి…",
+    statusDemo: "డెమో మోడ్ — API కనెక్ట్ కాలేదు",
+    statusLive: "{0} ఆటగాళ్లు · ప్రత్యక్షం",
+    statusOffline: "API ఆఫ్‌లైన్",
+    estValue: "అంచనా విలువ",
+    age: "వయస్సు {0}",
+    searching: "శోధిస్తోంది…",
+    runningPca: "PCA + కొసైన్ సిమిలారిటీ నడుస్తోంది…",
+    searchFailed: "శోధన విఫలమైంది",
+    apiRunning: "API నడుస్తోందా?",
+    noMatches: "బడ్జెట్‌లో ఎలాంటి సరిపోలికలు లేవు",
+    increaseCeiling: "మరిన్ని అభ్యర్థులను చూడటానికి PSR పరిమితిని పెంచండి",
+    statTwins: "గణాంక కవలలు",
+    clickCompare: "పోల్చడానికి కార్డ్‌పై క్లిక్ చేయండి",
+    withinBudget: "£{1}M లోపల {0}",
+    saves: "£{0}M ఆదా అవుతుంది",
+    psrSteal: "🔥 PSR డీల్",
+    noData: "డేటా లేదు"
+  },
+  hi: {
+    appTitle: "ट्रांसफर मैट्रिक्स — पीएसआर स्काउटिंग इंटेलिजेंस",
+    logoText: "ट्रांसफर मैट्रिक्स",
+    appTag: "पीएसआर स्काउटिंग इंटेलिजेंस",
+    connecting: "कनेक्ट हो रहा है…",
+    posLabel: "स्थान",
+    targetLabel: "लक्ष्य खिलाड़ी",
+    budgetLabel: "पीएसआर बजट सीमा",
+    maxFee: "अधिकतम शुल्क",
+    btnSearch: "सांख्यिकीय जुड़वां खोजें",
+    footerText: "शीर्ष 5 लीग में 230 खिलाड़ियों में पीसीए डायमेंशनलिटी रिडक्शन + कोसाइन सिमिलैरिटी। पीएसआर अनुपालन के लिए बजट-फ़िल्टर किया गया।",
+    statProfileTitle: "सांख्यिकीय प्रोफ़ाइल तुलना",
+    noCompLoaded: "कोई तुलना लोड नहीं की गई",
+    runSearchOverlay: "रडार पर दो सांख्यिकीय प्रोफाइल को ओवरले करने के लिए खोज चलाएं",
+    awaitingSearch: "खोज की प्रतीक्षा है",
+    chooseTarget: "एक लक्ष्य खिलाड़ी चुनें, अपनी पीएसआर सीमा निर्धारित करें, और उनके सांख्यिकीय जुड़वां खोजें",
+    posAll: "सभी स्थान",
+    posGK: "गोलकीपर",
+    posCM: "सेंट्रल मिडफील्डर",
+    posCAM: "अटैकिंग मिडफील्डर",
+    posFWD: "फॉरवर्ड",
+    posWNG: "विंगर",
+    selectPlayer: "एक खिलाड़ी चुनें…",
+    statusDemo: "डेमो मोड — एपीआई कनेक्ट नहीं है",
+    statusLive: "{0} खिलाड़ी · लाइव",
+    statusOffline: "एपीआई ऑफ़लाइन",
+    estValue: "अनुमानित मूल्य",
+    age: "उम्र {0}",
+    searching: "खोज रहा है…",
+    runningPca: "पीसीए + कोसाइन सिमिलैरिटी चल रहा है…",
+    searchFailed: "खोज विफल रही",
+    apiRunning: "क्या एपीआई चल रहा है?",
+    noMatches: "बजट के भीतर कोई मेल नहीं",
+    increaseCeiling: "अधिक उम्मीदवार देखने के लिए पीएसआर सीमा बढ़ाएँ",
+    statTwins: "सांख्यिकीय जुड़वां",
+    clickCompare: "तुलना करने के लिए कार्ड पर क्लिक करें",
+    withinBudget: "£{1}M के भीतर {0}",
+    saves: "£{0}M बचाता है",
+    psrSteal: "🔥 पीएसआर डील",
+    noData: "कोई डेटा नहीं"
+  }
+};
+
+let currentLang = 'en';
+
+function t(key, ...args) {
+  let str = translations[currentLang][key] || key;
+  args.forEach((arg, i) => {
+    str = str.replace(`{${i}}`, arg);
+  });
+  return str;
+}
+
+function updateUI() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(translations[currentLang][key]) {
+      if (el.tagName.toLowerCase() === 'option') {
+        el.textContent = translations[currentLang][key];
+      } else {
+        el.textContent = translations[currentLang][key];
+      }
+    }
+  });
+  
+  // Re-run population to translate select options correctly, keeping the values intact
+  if(allPlayers.length > 0) {
+    statusText.textContent = t('statusLive', allPlayers.length);
+  } else if (!API) {
+    statusText.textContent = t('statusDemo');
+  } else {
+    statusText.textContent = t('statusOffline');
+  }
+
+  // Update button if it's currently showing loading state
+  if(searchBtn.disabled && !selectedPid) {
+     searchBtn.textContent = t('btnSearch');
+  } else if (searchBtn.disabled && selectedPid) {
+     searchBtn.textContent = t('searching');
+  } else {
+     searchBtn.textContent = t('btnSearch');
+  }
+
+  if(selectedPid && targetCard.style.display !== 'none') {
+     loadTargetCard(selectedPid, true); // re-render without fetching
+  }
+  
+  if (matchData) {
+     renderResults(matchData);
+     if(matchData.matches.length) renderRadar(matchData.target, matchData.matches[selectedIdx]);
+  }
+}
+
+document.getElementById('lang-select').addEventListener('change', (e) => {
+  currentLang = e.target.value;
+  updateUI();
+});
+
 const API='';
-let allPlayers=[],selectedPid=null,selectedIdx=0,matchData=null;
+let allPlayers=[],selectedPid=null,selectedIdx=0,matchData=null,lastTargetData=null;
 const posSelect=document.getElementById('pos-select');
 const playerSelect=document.getElementById('player-select');
 const budgetRange=document.getElementById('budget-range');
@@ -268,19 +473,19 @@ const radarWrap=document.getElementById('radar-wrap');
 const rzLegend=document.getElementById('rz-legend');
 
 async function init(){
-  if(!API){statusDot.className='status-dot error';statusText.textContent='Demo mode — API not connected';return}
+  if(!API){statusDot.className='status-dot error';statusText.textContent=t('statusDemo');return}
   try{
     allPlayers=await fetch(`${API}/players`).then(r=>r.json());
     statusDot.className='status-dot live';
-    statusText.textContent=`${allPlayers.length} players · live`;
+    statusText.textContent=t('statusLive', allPlayers.length);
     populatePlayers();
-  }catch(e){statusDot.className='status-dot error';statusText.textContent='API offline'}
+  }catch(e){statusDot.className='status-dot error';statusText.textContent=t('statusOffline');}
 }
 
 function populatePlayers(){
   const pos=posSelect.value;
   const list=pos?allPlayers.filter(p=>p.position_group===pos):allPlayers;
-  playerSelect.innerHTML='<option value="">Select a player…</option>';
+  playerSelect.innerHTML=`<option value="" data-i18n="selectPlayer">${t('selectPlayer')}</option>`;
   list.sort((a,b)=>a.player_name.localeCompare(b.player_name)).forEach(p=>{
     const o=document.createElement('option');
     o.value=p.player_id;o.textContent=`${p.player_name} — ${p.club}`;
@@ -297,25 +502,33 @@ playerSelect.addEventListener('change',async()=>{
 budgetRange.addEventListener('input',()=>{budgetVal.textContent=budgetRange.value});
 searchBtn.addEventListener('click',runSearch);
 
-async function loadTargetCard(pid){
+async function loadTargetCard(pid, useCache=false){
   try{
-    const p=await fetch(`${API}/player/${encodeURIComponent(pid)}`).then(r=>r.json());
+    let p;
+    if(useCache && lastTargetData && lastTargetData.player_id === pid) {
+      p = lastTargetData;
+    } else {
+      p=await fetch(`${API}/player/${encodeURIComponent(pid)}`).then(r=>r.json());
+      lastTargetData = p;
+    }
     const keys=Object.keys(p.stats).slice(0,4);
     targetCard.innerHTML=`<div class="t-card">
       <div class="t-name">${p.player_name}</div>
-      <div class="t-club">${p.club} · ${p.league} · Age ${p.age}</div>
-      <div class="t-val">£${p.market_value_m}M <span style="color:var(--text-dim);font-weight:400;font-size:12px">est. value</span></div>
+      <div class="t-club">${p.club} · ${p.league} · ${t('age', p.age)}</div>
+      <div class="t-val">£${p.market_value_m}M <span style="color:var(--text-dim);font-weight:400;font-size:12px" data-i18n="estValue">${t('estValue')}</span></div>
       <div class="t-stats">${keys.map(k=>`<div class="t-stat"><div class="t-stat-lbl">${p.stat_labels?.[k]||k}</div><div class="t-stat-num">${p.stats[k]}</div></div>`).join('')}</div>
     </div>`;
     targetCard.style.display='block';
-  }catch(e){targetCard.style.display='none'}
+  }catch(e){
+    if(!useCache) targetCard.style.display='none';
+  }
 }
 
 async function runSearch(){
   if(!selectedPid)return;
   const budget=budgetRange.value;
-  searchBtn.disabled=true;searchBtn.textContent='Searching…';
-  resultsCont.innerHTML=`<div class="loader"><div class="spinner"></div><div class="loader-txt">Running PCA + Cosine Similarity…</div></div>`;
+  searchBtn.disabled=true;searchBtn.textContent=t('searching');
+  resultsCont.innerHTML=`<div class="loader"><div class="spinner"></div><div class="loader-txt" data-i18n="runningPca">${t('runningPca')}</div></div>`;
   radarWrap.innerHTML=`<div class="loader" style="height:200px"><div class="spinner"></div></div>`;
   try{
     matchData=await fetch(`${API}/match?player_id=${encodeURIComponent(selectedPid)}&budget=${budget}&n=5`).then(r=>r.json());
@@ -323,26 +536,26 @@ async function runSearch(){
     renderResults(matchData);
     if(matchData.matches.length)renderRadar(matchData.target,matchData.matches[0]);
   }catch(e){
-    resultsCont.innerHTML=`<div class="empty"><div class="empty-icon">✕</div><div class="empty-title">Search failed</div><div class="empty-sub">Is the API running?</div></div>`;
-    radarWrap.innerHTML=`<div class="empty" style="height:200px"><div class="empty-sub">No data</div></div>`;
+    resultsCont.innerHTML=`<div class="empty"><div class="empty-icon">✕</div><div class="empty-title" data-i18n="searchFailed">${t('searchFailed')}</div><div class="empty-sub" data-i18n="apiRunning">${t('apiRunning')}</div></div>`;
+    radarWrap.innerHTML=`<div class="empty" style="height:200px"><div class="empty-sub" data-i18n="noData">${t('noData')}</div></div>`;
   }finally{
-    searchBtn.disabled=false;searchBtn.textContent='Find Statistical Twins';
+    searchBtn.disabled=false;searchBtn.textContent=t('btnSearch');
   }
 }
 
 function renderResults(data){
   if(!data.matches.length){
-    resultsCont.innerHTML=`<div class="empty"><div class="empty-icon">💸</div><div class="empty-title">No matches within budget</div><div class="empty-sub">Increase the PSR ceiling to see more candidates</div></div>`;
+    resultsCont.innerHTML=`<div class="empty"><div class="empty-icon">💸</div><div class="empty-title" data-i18n="noMatches">${t('noMatches')}</div><div class="empty-sub" data-i18n="increaseCeiling">${t('increaseCeiling')}</div></div>`;
     return;
   }
-  const header=`<div class="rh"><span class="rh-title">Statistical Twins</span><span class="rh-pill">${data.filtered_count} within £${data.budget_ceiling_m}M</span><span class="rh-hint">Click a card to compare</span></div>`;
+  const header=`<div class="rh"><span class="rh-title" data-i18n="statTwins">${t('statTwins')}</span><span class="rh-pill">${t('withinBudget', data.filtered_count, data.budget_ceiling_m)}</span><span class="rh-hint" data-i18n="clickCompare">${t('clickCompare')}</span></div>`;
   const cards=data.matches.map((m,i)=>`
     <div class="m-card ${i===0?'active':''}" onclick="selectMatch(${i})" style="animation-delay:${i*0.06}s">
       <div class="gauge-wrap"><canvas class="gauge" id="gauge-${i}" width="80" height="80"></canvas></div>
       <div class="m-name">${m.player_name}</div>
       <div class="m-club">${m.club} · ${m.league}</div>
-      <div class="m-row"><span class="m-val">£${m.market_value_m}M</span><span class="m-saving">saves £${m.estimated_saving_m}M</span></div>
-      ${m.value_anomaly?`<div class="steal-tag">🔥 PSR Steal</div>`:''}
+      <div class="m-row"><span class="m-val">£${m.market_value_m}M</span><span class="m-saving">${t('saves', m.estimated_saving_m)}</span></div>
+      ${m.value_anomaly?`<div class="steal-tag">${t('psrSteal')}</div>`:''}
     </div>`).join('');
   resultsCont.innerHTML=header+`<div class="cards-row">${cards}</div>`;
   requestAnimationFrame(()=>data.matches.forEach((m,i)=>drawGauge(i,m.similarity_pct)));
