@@ -1,1 +1,7 @@
--r backend/requirements.txt
+fastapi
+uvicorn
+pydantic
+scikit-learn
+pandas
+numpy
+scipy
