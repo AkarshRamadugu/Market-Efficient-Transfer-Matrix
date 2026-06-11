@@ -566,7 +566,7 @@ function updateUI() {
   
   if(allPlayers.length > 0) {
     statusText.textContent = t('statusLive', allPlayers.length);
-  } else if (!API) {
+  } else if (API === null) {
     statusText.textContent = t('statusDemo');
   } else {
     statusText.textContent = t('statusOffline');
@@ -668,7 +668,6 @@ const rzLegend=document.getElementById('rz-legend');
 
 async function init(){
   applySettingsToForm();
-  if(!API){statusDot.className='status-dot error';statusText.textContent=t('statusDemo');return}
   try{
     allPlayers=await fetch(`${API}/players`).then(r=>r.json());
     statusDot.className='status-dot live';
