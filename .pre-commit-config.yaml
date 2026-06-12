@@ -50,3 +50,13 @@ repos:
         entry: eslint
         language: system
         types: [javascript]
+      - id: semgrep
+        name: semgrep
+        entry: semgrep
+        language: system
+        types: [python]
+      - id: biome
+        name: biome
+        entry: biome
+        language: system
+        types: [javascript]
