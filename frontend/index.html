@@ -785,7 +785,26 @@ async function generateScoutReport(idx, e) {
 
   try {
     if (aiSettings.provider === 'gemini') {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${aiSettings.apiKey}`, {
+      let modelToUse = 'gemini-1.5-flash';
+      try {
+        const listRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${aiSettings.apiKey}`);
+        if (listRes.ok) {
+          const listData = await listRes.json();
+          if (listData.models) {
+            const valid = listData.models.find(m => m.supportedGenerationMethods.includes('generateContent') && m.name.includes('gemini-1.5'));
+            if (valid) {
+              modelToUse = valid.name.split('/')[1];
+            } else {
+              const fallback = listData.models.find(m => m.supportedGenerationMethods.includes('generateContent') && m.name.includes('gemini'));
+              if (fallback) modelToUse = fallback.name.split('/')[1];
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('Could not list models', e);
+      }
+
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelToUse}:generateContent?key=${aiSettings.apiKey}`, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ contents: [{parts:[{text: prompt}]}] })
