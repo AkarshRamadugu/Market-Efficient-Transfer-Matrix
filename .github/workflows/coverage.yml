@@ -20,6 +20,9 @@ jobs:
         pip install -r requirements.txt
     - name: Run Pytest with Coverage
       run: |
-        pytest --cov=backend
+        pytest --cov=backend --cov-report=xml --cov-fail-under=80
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: true
