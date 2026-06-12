@@ -11,3 +11,5 @@ codecov
 pylint
 flake8
 semgrep
+ruff
+mypy

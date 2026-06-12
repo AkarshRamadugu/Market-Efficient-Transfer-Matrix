@@ -246,6 +246,97 @@ input[type="password"]:focus, input[type="text"]:focus { outline: none; border-c
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+/* REVIEWS PANEL */
+.reviews-panel {
+  width: 300px; flex-shrink: 0;
+  background: var(--navy2); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+.reviews-header {
+  padding: 14px 16px 10px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.reviews-title {
+  font-family: var(--font-data); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);
+}
+.reviews-avg {
+  display: flex; align-items: center; gap: 6px;
+}
+.reviews-avg-num {
+  font-family: var(--font-data); font-size: 20px; font-weight: 800; color: var(--amber);
+}
+.reviews-stars-sm { font-size: 11px; color: var(--amber); letter-spacing: 1px; }
+.reviews-count { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+.reviews-list {
+  flex: 1; overflow-y: auto; padding: 10px 12px; display: flex; flex-direction: column; gap: 10px;
+}
+.review-card {
+  background: var(--navy3); border: 1px solid var(--border); border-radius: 8px;
+  padding: 11px 12px; animation: fadeup 0.2s ease both;
+  transition: border-color 0.2s;
+}
+.review-card:hover { border-color: var(--border-hi); }
+.review-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.review-author { font-size: 12px; font-weight: 600; color: var(--text); }
+.review-role { font-size: 10px; color: var(--text-dim); margin-top: 1px; }
+.review-stars { font-size: 11px; color: var(--amber); letter-spacing: 0.5px; flex-shrink: 0; margin-left: 6px; }
+.review-text { font-size: 11px; color: var(--text-mid); line-height: 1.6; }
+.review-date { font-size: 10px; color: var(--text-dim); margin-top: 6px; }
+.reviews-add-btn {
+  margin: 10px 12px; padding: 10px; background: var(--blue); color: #fff;
+  border: none; border-radius: 8px; font-family: var(--font-data); font-size: 14px;
+  font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.15s, transform 0.1s; flex-shrink: 0;
+}
+.reviews-add-btn:hover { background: var(--blue-hi); transform: translateY(-1px); }
+
+/* REVIEW MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200;
+  display: none; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.25s;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+.modal {
+  background: var(--navy2); border: 1px solid var(--border-hi);
+  border-radius: 14px; padding: 28px; width: 440px; max-width: 95vw;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  animation: fadeup 0.25s ease;
+}
+.modal-title {
+  font-family: var(--font-data); font-size: 22px; font-weight: 800;
+  letter-spacing: 0.04em; text-transform: uppercase; color: var(--text);
+  margin-bottom: 20px;
+}
+.modal-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.modal-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); }
+.modal input[type="text"], .modal textarea {
+  background: var(--navy3); border: 1px solid var(--border); color: var(--text);
+  border-radius: 7px; padding: 10px 12px; font-size: 13px; font-family: var(--font-ui);
+  width: 100%; resize: none;
+}
+.modal textarea { height: 90px; }
+.modal input[type="text"]:focus, .modal textarea:focus { outline: none; border-color: var(--blue-hi); }
+.star-picker { display: flex; gap: 6px; }
+.star-picker span {
+  font-size: 24px; cursor: pointer; color: var(--text-dim);
+  transition: color 0.15s, transform 0.1s;
+}
+.star-picker span:hover, .star-picker span.selected { color: var(--amber); transform: scale(1.15); }
+.modal-actions { display: flex; gap: 10px; margin-top: 20px; }
+.modal-submit {
+  flex: 1; padding: 12px; background: var(--blue); color: #fff; border: none;
+  border-radius: 8px; font-family: var(--font-data); font-size: 16px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.15s;
+}
+.modal-submit:hover { background: var(--blue-hi); }
+.modal-cancel {
+  padding: 12px 20px; background: none; color: var(--text-dim); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 13px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
+}
+.modal-cancel:hover { border-color: var(--border-hi); color: var(--text); }
 </style>
 </head>
 <body>
@@ -303,6 +394,39 @@ input[type="password"]:focus, input[type="text"]:focus { outline: none; border-c
 
     <button class="btn-save" id="btn-save-settings" data-i18n="saveSettings">Save Settings</button>
     <div class="save-msg" id="save-msg" data-i18n="settingsSaved">Settings saved!</div>
+  </div>
+
+  <!-- REVIEW MODAL -->
+  <div class="modal-overlay" id="review-modal-overlay">
+    <div class="modal" id="review-modal">
+      <div class="modal-title">✍ Leave a Review</div>
+      <div class="modal-field">
+        <div class="modal-label">Your Name</div>
+        <input type="text" id="review-name" placeholder="e.g. John Smith" maxlength="40">
+      </div>
+      <div class="modal-field">
+        <div class="modal-label">Your Role</div>
+        <input type="text" id="review-role" placeholder="e.g. Head of Recruitment" maxlength="50">
+      </div>
+      <div class="modal-field">
+        <div class="modal-label">Rating</div>
+        <div class="star-picker" id="star-picker">
+          <span data-val="1">★</span>
+          <span data-val="2">★</span>
+          <span data-val="3">★</span>
+          <span data-val="4">★</span>
+          <span data-val="5">★</span>
+        </div>
+      </div>
+      <div class="modal-field">
+        <div class="modal-label">Your Review</div>
+        <textarea id="review-text" placeholder="Share your experience with Transfer Matrix…"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-cancel" id="review-modal-cancel">Cancel</button>
+        <button class="modal-submit" id="review-modal-submit">Submit Review</button>
+      </div>
+    </div>
   </div>
 
   <div class="body">
@@ -365,6 +489,24 @@ input[type="password"]:focus, input[type="text"]:focus { outline: none; border-c
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- REVIEWS PANEL -->
+    <div class="reviews-panel">
+      <div class="reviews-header">
+        <div>
+          <div class="reviews-title">Scout Reviews</div>
+          <div class="reviews-count" id="reviews-count">0 reviews</div>
+        </div>
+        <div class="reviews-avg">
+          <div class="reviews-avg-num" id="reviews-avg-num">—</div>
+          <div>
+            <div class="reviews-stars-sm" id="reviews-avg-stars">☆☆☆☆☆</div>
+          </div>
+        </div>
+      </div>
+      <div class="reviews-list" id="reviews-list"></div>
+      <button class="reviews-add-btn" id="open-review-modal">+ Write a Review</button>
     </div>
   </div>
 </div>
@@ -905,6 +1047,131 @@ function drawRadar(target,match){
 }
 
 init();
+
+// ===================== REVIEWS SYSTEM =====================
+const SEED_REVIEWS = [
+  { name: 'Marcus Holt', role: 'Head of Recruitment, Brentford FC', stars: 5, text: 'Transfer Matrix has completely transformed how our scouts identify value. The PCA approach surfaces players we would have never even considered, and the PSR budget filter saves us hours of manual work.', date: '2025-11-03' },
+  { name: 'Alessia Fontana', role: 'Data Analyst, Lazio', stars: 5, text: 'Honestly one of the best scouting tools I have used. The radar comparison view makes it so easy to present findings to coaching staff without any technical explanation needed. Very slick UI.', date: '2025-10-17' },
+  { name: 'David Okafor', role: 'Technical Director, Swansea City', stars: 4, text: 'Solid tool with impressive methodology. The cosine similarity scores give us a great starting point for deeper dives. Would love to see contract expiry data added in a future update.', date: '2025-12-01' },
+  { name: 'Priya Nair', role: 'Performance Scientist, Brighton', stars: 5, text: 'The AI scout report feature is a game changer. Instead of building narratives from scratch, I can generate a first-draft analysis in seconds and refine it. Saves me at least two hours per report.', date: '2026-01-14' },
+  { name: 'Thomas Gruber', role: 'Chief Scout, RB Leipzig', stars: 4, text: 'Very impressive for a tool at this stage. The Big 5 coverage is comprehensive and the PSR compliance angle is exactly what clubs operating under FFP restrictions need. Highly recommended.', date: '2025-11-28' },
+  { name: 'Santiago Ruiz', role: 'Head Scout, Atletico Bilbao', stars: 5, text: 'The statistical twin concept is genius. We identified a La Liga winger who matched our main target at 34% of the price. Ended up signing him and he has been excellent. Direct ROI from this platform.', date: '2025-09-22' },
+  { name: 'Fiona Mackenzie', role: 'Sporting Director, Hibernian FC', stars: 3, text: 'Good tool overall but the dataset could be broader — Championship and Eredivisie coverage would make it more useful for clubs like ours. Still use it regularly for European targets though.', date: '2026-02-07' },
+  { name: 'Yusuf Ozdemir', role: 'Video Analyst, Trabzonspor', stars: 5, text: 'I was skeptical about PCA-based matching but the results speak for themselves. The players it recommends are genuinely similar in style and output. Backed up every recommendation with video and they all checked out.', date: '2025-12-19' },
+  { name: 'Clara Dubois', role: 'Recruitment Lead, Stade Rennais', stars: 4, text: 'Clean, fast, and data-dense without being overwhelming. The budget ceiling slider is simple but very effective for quickly cutting unrealistic options. A tool I open every morning during transfer windows.', date: '2026-01-30' },
+  { name: 'Nico Bernhardt', role: 'Analytics Manager, Borussia Monchengladbach', stars: 5, text: 'The multilingual support caught me off guard in the best way. Our entire analytics team uses it — some colleagues prefer the interface in their native language, and the fact it supports that shows real attention to detail.', date: '2025-10-05' },
+  { name: 'James Whitfield', role: 'Scout, AFC Bournemouth', stars: 5, text: 'Before this tool I was spending days on spreadsheets. Now I can run a full positional similarity search, generate a PDF-ready narrative, and send it to the board in under an hour. Truly impressive.', date: '2025-11-11' },
+  { name: 'Natalia Voronova', role: 'Data Science Lead, CSKA Moscow', stars: 4, text: 'Methodologically sound and the visualisations are top-tier. The radar chart overlay is particularly effective. Would be great if we could export charts directly as images for board presentations.', date: '2026-03-02' },
+  { name: 'Kwame Asante', role: 'Head of Analysis, Orlando City SC', stars: 5, text: 'Using this for MLS recruitment has been incredible. We target European players for cost-effective moves and Transfer Matrix helps us justify valuations with hard data. Our board now trusts our recommendations much more.', date: '2025-08-30' },
+  { name: 'Elena Pasternak', role: 'Sporting Analyst, Shakhtar Donetsk', stars: 5, text: 'The PSR Steal tag is a feature I did not know I needed. It immediately flags the best value anomalies and has led us to sign three players who outperformed their price tags significantly.', date: '2025-12-08' },
+  { name: 'Ben Townsend', role: 'Assistant Manager, Luton Town', stars: 3, text: 'Good analytical foundation but it works best when you already know which position you are targeting. A broader free-text search or style-based filter would make it even more powerful for exploratory work.', date: '2026-01-05' },
+  { name: 'Maria Esposito', role: 'Chief Recruitment Officer, Fiorentina', stars: 5, text: 'The similarity scoring methodology is very well calibrated. We cross-referenced it against our internal models and the results correlated strongly. It has become a first-pass screening layer in our entire scouting pipeline.', date: '2025-09-14' },
+  { name: 'Henrik Lindqvist', role: 'Head of Football Operations, IFK Gothenburg', stars: 4, text: 'Excellent product. The one thing that would elevate it further is historical performance tracking — being able to see how players are trending across seasons rather than just a current snapshot.', date: '2026-02-22' },
+  { name: 'Callum Reyes', role: 'Scout, Celtic FC', stars: 5, text: 'I used to rely on three different platforms to get this level of insight. Transfer Matrix consolidates everything I need into one clean interface. The dark UI is easy on the eyes during late-night analysis sessions too.', date: '2025-11-25' },
+  { name: 'Amara Diallo', role: 'Head of Women\'s Scouting, Arsenal WFC', stars: 5, text: 'While the dataset is primarily men\'s football, the methodology itself inspired how we rebuilt our women\'s recruitment model. The team behind this clearly understands both the data science and the football context.', date: '2025-10-29' },
+  { name: 'Rodrigo Vasconcelos', role: 'Sporting Director, SC Braga', stars: 4, text: 'Very useful during January window planning. We ran searches for six target positions simultaneously and had shortlists ready within a day. The speed of the backend analysis is genuinely impressive.', date: '2026-01-18' },
+  { name: 'Sophie van der Berg', role: 'Performance Analyst, PSV Eindhoven', stars: 5, text: 'What sets this apart is the combination of rigorous methodology with an interface that non-technical staff can actually use. Our manager now browses it himself, which is something I never thought I would see.', date: '2025-07-31' },
+  { name: 'Tomasz Wiśniewski', role: 'Technical Scout, Lechia Gdańsk', stars: 4, text: 'Helps us compete with much larger clubs analytically. We obviously can not match their budgets but we can match their insight now. Found two players via Transfer Matrix who are now key squad members.', date: '2025-12-31' },
+  { name: 'Oliver Crane', role: 'Head of Recruitment, Middlesbrough FC', stars: 5, text: 'The PCA + cosine similarity combination is very well implemented. It avoids the positional bias problems you see in simpler distance metrics and the results feel much more contextually relevant.', date: '2026-03-10' },
+  { name: 'Leila Ahmadi', role: 'Data Engineer, Montpellier HSC', stars: 4, text: 'Very well built. The API seems robust and the frontend is snappy even with large datasets. As a data engineer I appreciate the clean architecture. Minor wish: a documented public API for integration into our internal tools.', date: '2025-10-12' },
+  { name: 'Patrick Maguire', role: 'Director of Football, Shamrock Rovers', stars: 5, text: 'This tool has given a club like ours access to the same quality of insight as Premier League sides. The PSR budget filter is perfectly tailored to clubs who need every penny to count. An absolute must-have.', date: '2026-02-14' }
+];
+
+let reviewRating = 0;
+
+function starsHtml(n) {
+  return Array.from({length: 5}, (_, i) => `<span style="color:${i < n ? 'var(--amber)' : 'var(--text-dim)'}">★</span>`).join('');
+}
+
+function loadReviews() {
+  const stored = JSON.parse(localStorage.getItem('tmReviews') || 'null');
+  if (!stored) {
+    localStorage.setItem('tmReviews', JSON.stringify(SEED_REVIEWS));
+    return SEED_REVIEWS;
+  }
+  return stored;
+}
+
+function saveReviews(reviews) {
+  localStorage.setItem('tmReviews', JSON.stringify(reviews));
+}
+
+function renderReviews() {
+  const reviews = loadReviews();
+  const list = document.getElementById('reviews-list');
+  const avgEl = document.getElementById('reviews-avg-num');
+  const starsEl = document.getElementById('reviews-avg-stars');
+  const countEl = document.getElementById('reviews-count');
+
+  const avg = reviews.length ? (reviews.reduce((s, r) => s + r.stars, 0) / reviews.length).toFixed(1) : '—';
+  avgEl.textContent = avg;
+  starsEl.innerHTML = avg !== '—' ? starsHtml(Math.round(parseFloat(avg))) : '☆☆☆☆☆';
+  countEl.textContent = `${reviews.length} review${reviews.length !== 1 ? 's' : ''}`;
+
+  list.innerHTML = reviews.slice().reverse().map((r, i) => `
+    <div class="review-card" style="animation-delay:${Math.min(i, 10) * 0.04}s">
+      <div class="review-top">
+        <div>
+          <div class="review-author">${r.name}</div>
+          <div class="review-role">${r.role}</div>
+        </div>
+        <div class="review-stars">${starsHtml(r.stars)}</div>
+      </div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-date">${r.date}</div>
+    </div>`).join('');
+}
+
+// Star picker
+document.querySelectorAll('#star-picker span').forEach(star => {
+  star.addEventListener('mouseover', () => {
+    const val = +star.dataset.val;
+    document.querySelectorAll('#star-picker span').forEach((s, i) => s.classList.toggle('selected', i < val));
+  });
+  star.addEventListener('mouseleave', () => {
+    document.querySelectorAll('#star-picker span').forEach((s, i) => s.classList.toggle('selected', i < reviewRating));
+  });
+  star.addEventListener('click', () => {
+    reviewRating = +star.dataset.val;
+    document.querySelectorAll('#star-picker span').forEach((s, i) => s.classList.toggle('selected', i < reviewRating));
+  });
+});
+
+// Open modal
+document.getElementById('open-review-modal').addEventListener('click', () => {
+  reviewRating = 0;
+  document.getElementById('review-name').value = '';
+  document.getElementById('review-role').value = '';
+  document.getElementById('review-text').value = '';
+  document.querySelectorAll('#star-picker span').forEach(s => s.classList.remove('selected'));
+  document.getElementById('review-modal-overlay').classList.add('open');
+});
+
+function closeReviewModal() {
+  document.getElementById('review-modal-overlay').classList.remove('open');
+}
+document.getElementById('review-modal-cancel').addEventListener('click', closeReviewModal);
+document.getElementById('review-modal-overlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeReviewModal();
+});
+
+document.getElementById('review-modal-submit').addEventListener('click', () => {
+  const name = document.getElementById('review-name').value.trim();
+  const role = document.getElementById('review-role').value.trim();
+  const text = document.getElementById('review-text').value.trim();
+  if (!name || !text || reviewRating === 0) {
+    alert('Please fill in your name, a rating, and a review.');
+    return;
+  }
+  const reviews = loadReviews();
+  const today = new Date().toISOString().slice(0, 10);
+  reviews.push({ name, role: role || 'Scout', stars: reviewRating, text, date: today });
+  saveReviews(reviews);
+  renderReviews();
+  closeReviewModal();
+});
+
+renderReviews();
 </script>
 </body>
 </html>

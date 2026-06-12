@@ -14,20 +14,23 @@ test_job:
 lint_job:
   stage: lint
   script:
-    - echo "Linting..."
+    - pip install ruff
+    - ruff check .
 
 format_job:
   stage: format
   script:
-    - echo "Formatting..."
+    - pip install ruff
+    - ruff format --check .
 
 type_check_job:
   stage: type_check
   script:
-    - echo "Type checking..."
+    - pip install mypy
+    - mypy backend --ignore-missing-imports
 
 coverage_job:
   stage: coverage
   script:
     - pip install -r requirements.txt
-    - pytest --cov=backend --cov-report=xml
+    - pytest --cov=backend --cov-report=xml --cov-fail-under=80

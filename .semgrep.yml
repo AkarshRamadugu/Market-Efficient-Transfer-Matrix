@@ -1,0 +1,16 @@
+rules:
+  - id: no-hardcoded-credentials
+    patterns:
+      - pattern: |
+          $KEY = "..."
+    message: Possible hardcoded credential
+    languages: [python]
+    severity: WARNING
+
+  - id: use-https
+    patterns:
+      - pattern: |
+          requests.get("http://...")
+    message: Prefer HTTPS over HTTP
+    languages: [python]
+    severity: WARNING
