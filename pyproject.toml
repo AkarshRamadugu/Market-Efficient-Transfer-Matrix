@@ -22,3 +22,6 @@ exclude_dirs = ["tests"]
 [tool.vulture]
 min_confidence = 80
 paths = ["backend"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=backend"

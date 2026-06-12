@@ -4,4 +4,5 @@ stages:
 test_job:
   stage: test
   script:
-    - echo "Pipeline running successfully."
+    - pip install -r backend/requirements.txt
+    - pytest --cov=backend
