@@ -1,5 +1,13 @@
 {
   "name": "market-efficient-transfer-matrix",
   "version": "1.0.1",
-  "description": "PSR Scouting Intelligence Dashboard utilizing PCA and Cosine Similarity"
+  "description": "PSR Scouting Intelligence Dashboard utilizing PCA and Cosine Similarity",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "@biomejs/biome": "^1.0.0",
+    "oxlint": "^0.0.0",
+    "knip": "^3.0.0",
+    "husky": "^8.0.0"
+  }
 }

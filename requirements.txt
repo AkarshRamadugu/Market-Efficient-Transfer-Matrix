@@ -8,3 +8,6 @@ scipy
 pytest
 pytest-cov
 codecov
+pylint
+flake8
+semgrep

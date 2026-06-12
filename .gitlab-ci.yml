@@ -1,8 +1,33 @@
 stages:
   - test
+  - lint
+  - format
+  - type_check
+  - coverage
 
 test_job:
   stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest
+
+lint_job:
+  stage: lint
+  script:
+    - echo "Linting..."
+
+format_job:
+  stage: format
+  script:
+    - echo "Formatting..."
+
+type_check_job:
+  stage: type_check
+  script:
+    - echo "Type checking..."
+
+coverage_job:
+  stage: coverage
   script:
     - pip install -r requirements.txt
     - pytest --cov=backend --cov-report=xml
