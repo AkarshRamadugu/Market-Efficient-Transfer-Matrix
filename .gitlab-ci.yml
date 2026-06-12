@@ -4,5 +4,5 @@ stages:
 test_job:
   stage: test
   script:
-    - pip install -r backend/requirements.txt
-    - pytest --cov=backend
+    - pip install -r requirements.txt
+    - pytest --cov=backend --cov-report=xml
