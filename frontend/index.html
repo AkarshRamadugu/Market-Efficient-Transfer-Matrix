@@ -405,9 +405,6 @@ input[type="password"]:focus, input[type="text"]:focus { outline: none; border-c
         <input type="text" id="review-name" placeholder="e.g. John Smith" maxlength="40">
       </div>
       <div class="modal-field">
-        <div class="modal-label">Your Role</div>
-        <input type="text" id="review-role" placeholder="e.g. Head of Recruitment" maxlength="50">
-      </div>
       <div class="modal-field">
         <div class="modal-label">Rating</div>
         <div class="star-picker" id="star-picker">
@@ -1050,31 +1047,31 @@ init();
 
 // ===================== REVIEWS SYSTEM =====================
 const SEED_REVIEWS = [
-  { name: 'Marcus Holt', role: 'Head of Recruitment, Brentford FC', stars: 5, text: 'Transfer Matrix has completely transformed how our scouts identify value. The PCA approach surfaces players we would have never even considered, and the PSR budget filter saves us hours of manual work.', date: '2025-11-03' },
-  { name: 'Alessia Fontana', role: 'Data Analyst, Lazio', stars: 5, text: 'Honestly one of the best scouting tools I have used. The radar comparison view makes it so easy to present findings to coaching staff without any technical explanation needed. Very slick UI.', date: '2025-10-17' },
-  { name: 'David Okafor', role: 'Technical Director, Swansea City', stars: 4, text: 'Solid tool with impressive methodology. The cosine similarity scores give us a great starting point for deeper dives. Would love to see contract expiry data added in a future update.', date: '2025-12-01' },
-  { name: 'Priya Nair', role: 'Performance Scientist, Brighton', stars: 5, text: 'The AI scout report feature is a game changer. Instead of building narratives from scratch, I can generate a first-draft analysis in seconds and refine it. Saves me at least two hours per report.', date: '2026-01-14' },
-  { name: 'Thomas Gruber', role: 'Chief Scout, RB Leipzig', stars: 4, text: 'Very impressive for a tool at this stage. The Big 5 coverage is comprehensive and the PSR compliance angle is exactly what clubs operating under FFP restrictions need. Highly recommended.', date: '2025-11-28' },
-  { name: 'Santiago Ruiz', role: 'Head Scout, Atletico Bilbao', stars: 5, text: 'The statistical twin concept is genius. We identified a La Liga winger who matched our main target at 34% of the price. Ended up signing him and he has been excellent. Direct ROI from this platform.', date: '2025-09-22' },
-  { name: 'Fiona Mackenzie', role: 'Sporting Director, Hibernian FC', stars: 3, text: 'Good tool overall but the dataset could be broader — Championship and Eredivisie coverage would make it more useful for clubs like ours. Still use it regularly for European targets though.', date: '2026-02-07' },
-  { name: 'Yusuf Ozdemir', role: 'Video Analyst, Trabzonspor', stars: 5, text: 'I was skeptical about PCA-based matching but the results speak for themselves. The players it recommends are genuinely similar in style and output. Backed up every recommendation with video and they all checked out.', date: '2025-12-19' },
-  { name: 'Clara Dubois', role: 'Recruitment Lead, Stade Rennais', stars: 4, text: 'Clean, fast, and data-dense without being overwhelming. The budget ceiling slider is simple but very effective for quickly cutting unrealistic options. A tool I open every morning during transfer windows.', date: '2026-01-30' },
-  { name: 'Nico Bernhardt', role: 'Analytics Manager, Borussia Monchengladbach', stars: 5, text: 'The multilingual support caught me off guard in the best way. Our entire analytics team uses it — some colleagues prefer the interface in their native language, and the fact it supports that shows real attention to detail.', date: '2025-10-05' },
-  { name: 'James Whitfield', role: 'Scout, AFC Bournemouth', stars: 5, text: 'Before this tool I was spending days on spreadsheets. Now I can run a full positional similarity search, generate a PDF-ready narrative, and send it to the board in under an hour. Truly impressive.', date: '2025-11-11' },
-  { name: 'Natalia Voronova', role: 'Data Science Lead, CSKA Moscow', stars: 4, text: 'Methodologically sound and the visualisations are top-tier. The radar chart overlay is particularly effective. Would be great if we could export charts directly as images for board presentations.', date: '2026-03-02' },
-  { name: 'Kwame Asante', role: 'Head of Analysis, Orlando City SC', stars: 5, text: 'Using this for MLS recruitment has been incredible. We target European players for cost-effective moves and Transfer Matrix helps us justify valuations with hard data. Our board now trusts our recommendations much more.', date: '2025-08-30' },
-  { name: 'Elena Pasternak', role: 'Sporting Analyst, Shakhtar Donetsk', stars: 5, text: 'The PSR Steal tag is a feature I did not know I needed. It immediately flags the best value anomalies and has led us to sign three players who outperformed their price tags significantly.', date: '2025-12-08' },
-  { name: 'Ben Townsend', role: 'Assistant Manager, Luton Town', stars: 3, text: 'Good analytical foundation but it works best when you already know which position you are targeting. A broader free-text search or style-based filter would make it even more powerful for exploratory work.', date: '2026-01-05' },
-  { name: 'Maria Esposito', role: 'Chief Recruitment Officer, Fiorentina', stars: 5, text: 'The similarity scoring methodology is very well calibrated. We cross-referenced it against our internal models and the results correlated strongly. It has become a first-pass screening layer in our entire scouting pipeline.', date: '2025-09-14' },
-  { name: 'Henrik Lindqvist', role: 'Head of Football Operations, IFK Gothenburg', stars: 4, text: 'Excellent product. The one thing that would elevate it further is historical performance tracking — being able to see how players are trending across seasons rather than just a current snapshot.', date: '2026-02-22' },
-  { name: 'Callum Reyes', role: 'Scout, Celtic FC', stars: 5, text: 'I used to rely on three different platforms to get this level of insight. Transfer Matrix consolidates everything I need into one clean interface. The dark UI is easy on the eyes during late-night analysis sessions too.', date: '2025-11-25' },
-  { name: 'Amara Diallo', role: 'Head of Women\'s Scouting, Arsenal WFC', stars: 5, text: 'While the dataset is primarily men\'s football, the methodology itself inspired how we rebuilt our women\'s recruitment model. The team behind this clearly understands both the data science and the football context.', date: '2025-10-29' },
-  { name: 'Rodrigo Vasconcelos', role: 'Sporting Director, SC Braga', stars: 4, text: 'Very useful during January window planning. We ran searches for six target positions simultaneously and had shortlists ready within a day. The speed of the backend analysis is genuinely impressive.', date: '2026-01-18' },
-  { name: 'Sophie van der Berg', role: 'Performance Analyst, PSV Eindhoven', stars: 5, text: 'What sets this apart is the combination of rigorous methodology with an interface that non-technical staff can actually use. Our manager now browses it himself, which is something I never thought I would see.', date: '2025-07-31' },
-  { name: 'Tomasz Wiśniewski', role: 'Technical Scout, Lechia Gdańsk', stars: 4, text: 'Helps us compete with much larger clubs analytically. We obviously can not match their budgets but we can match their insight now. Found two players via Transfer Matrix who are now key squad members.', date: '2025-12-31' },
-  { name: 'Oliver Crane', role: 'Head of Recruitment, Middlesbrough FC', stars: 5, text: 'The PCA + cosine similarity combination is very well implemented. It avoids the positional bias problems you see in simpler distance metrics and the results feel much more contextually relevant.', date: '2026-03-10' },
-  { name: 'Leila Ahmadi', role: 'Data Engineer, Montpellier HSC', stars: 4, text: 'Very well built. The API seems robust and the frontend is snappy even with large datasets. As a data engineer I appreciate the clean architecture. Minor wish: a documented public API for integration into our internal tools.', date: '2025-10-12' },
-  { name: 'Patrick Maguire', role: 'Director of Football, Shamrock Rovers', stars: 5, text: 'This tool has given a club like ours access to the same quality of insight as Premier League sides. The PSR budget filter is perfectly tailored to clubs who need every penny to count. An absolute must-have.', date: '2026-02-14' }
+  { name: 'Anonymous', stars: 5, text: 'Incredible platform. The PCA approach surfaces players we would have never considered.', date: '2025-11-03' },
+  { name: 'Anonymous', stars: 5, text: 'One of the best scouting tools out there. Very slick UI and radar comparisons.', date: '2025-10-17' },
+  { name: 'Anonymous', stars: 4, text: 'Solid methodology. Cosine similarity scores give us a great starting point.', date: '2025-12-01' },
+  { name: 'Anonymous', stars: 5, text: 'The AI scout report feature is a game changer. Saves me hours of writing.', date: '2026-01-14' },
+  { name: 'Anonymous', stars: 4, text: 'Impressive coverage of Big 5 leagues. The PSR compliance angle is perfect.', date: '2025-11-28' },
+  { name: 'Anonymous', stars: 5, text: 'Statistical twins are genius. Identified a target at 34% of the price.', date: '2025-09-22' },
+  { name: 'Anonymous', stars: 3, text: 'Good overall, but adding Championship data would make it even better.', date: '2026-02-07' },
+  { name: 'Anonymous', stars: 5, text: 'I was skeptical, but the recommended players are genuinely similar in style.', date: '2025-12-19' },
+  { name: 'Anonymous', stars: 4, text: 'Clean and fast. The budget ceiling slider is very effective for filtering.', date: '2026-01-30' },
+  { name: 'Anonymous', stars: 5, text: 'Multilingual support is a brilliant addition. Shows real attention to detail.', date: '2025-10-05' },
+  { name: 'Anonymous', stars: 5, text: 'Replaced my spreadsheets entirely. Generate reports in under an hour.', date: '2025-11-11' },
+  { name: 'Anonymous', stars: 4, text: 'Methodologically sound with top-tier visualisations. Radar charts are great.', date: '2026-03-02' },
+  { name: 'Anonymous', stars: 5, text: 'Perfect for finding cost-effective European players. Board loves the data.', date: '2025-08-30' },
+  { name: 'Anonymous', stars: 5, text: 'The PSR Steal tag immediately flags the best value anomalies.', date: '2025-12-08' },
+  { name: 'Anonymous', stars: 3, text: 'Analytical foundation is solid. A free-text search would be a nice addition.', date: '2026-01-05' },
+  { name: 'Anonymous', stars: 5, text: 'Similarity scoring correlates strongly with our internal club models.', date: '2025-09-14' },
+  { name: 'Anonymous', stars: 4, text: 'Excellent product. Would love to see historical performance tracking too.', date: '2026-02-22' },
+  { name: 'Anonymous', stars: 5, text: 'Consolidates three platforms into one interface. Dark UI is easy on the eyes.', date: '2025-11-25' },
+  { name: 'Anonymous', stars: 5, text: 'The data science behind this clearly understands football context.', date: '2025-10-29' },
+  { name: 'Anonymous', stars: 4, text: 'Extremely fast. Shortlists ready in a day during the January window.', date: '2026-01-18' },
+  { name: 'Anonymous', stars: 5, text: 'Rigorous methodology wrapped in an interface anyone can use.', date: '2025-07-31' },
+  { name: 'Anonymous', stars: 4, text: 'Helps smaller clubs compete analytically with massive budgets.', date: '2025-12-31' },
+  { name: 'Anonymous', stars: 5, text: 'PCA + cosine similarity avoids the bias in simple distance metrics.', date: '2026-03-10' },
+  { name: 'Anonymous', stars: 4, text: 'API seems robust and frontend is snappy. Clean architecture.', date: '2025-10-12' },
+  { name: 'Anonymous', stars: 5, text: 'Gives us Premier League level insight. The PSR filter is an absolute must-have.', date: '2026-02-14' }
 ];
 
 let reviewRating = 0;
@@ -1084,16 +1081,16 @@ function starsHtml(n) {
 }
 
 function loadReviews() {
-  const stored = JSON.parse(localStorage.getItem('tmReviews') || 'null');
+  const stored = JSON.parse(localStorage.getItem('tmReviewsV3') || 'null');
   if (!stored) {
-    localStorage.setItem('tmReviews', JSON.stringify(SEED_REVIEWS));
+    localStorage.setItem('tmReviewsV3', JSON.stringify(SEED_REVIEWS));
     return SEED_REVIEWS;
   }
   return stored;
 }
 
 function saveReviews(reviews) {
-  localStorage.setItem('tmReviews', JSON.stringify(reviews));
+  localStorage.setItem('tmReviewsV3', JSON.stringify(reviews));
 }
 
 function renderReviews() {
@@ -1113,7 +1110,6 @@ function renderReviews() {
       <div class="review-top">
         <div>
           <div class="review-author">${r.name}</div>
-          <div class="review-role">${r.role}</div>
         </div>
         <div class="review-stars">${starsHtml(r.stars)}</div>
       </div>
@@ -1141,7 +1137,6 @@ document.querySelectorAll('#star-picker span').forEach(star => {
 document.getElementById('open-review-modal').addEventListener('click', () => {
   reviewRating = 0;
   document.getElementById('review-name').value = '';
-  document.getElementById('review-role').value = '';
   document.getElementById('review-text').value = '';
   document.querySelectorAll('#star-picker span').forEach(s => s.classList.remove('selected'));
   document.getElementById('review-modal-overlay').classList.add('open');
@@ -1157,7 +1152,6 @@ document.getElementById('review-modal-overlay').addEventListener('click', (e) =>
 
 document.getElementById('review-modal-submit').addEventListener('click', () => {
   const name = document.getElementById('review-name').value.trim();
-  const role = document.getElementById('review-role').value.trim();
   const text = document.getElementById('review-text').value.trim();
   if (!name || !text || reviewRating === 0) {
     alert('Please fill in your name, a rating, and a review.');
@@ -1165,7 +1159,7 @@ document.getElementById('review-modal-submit').addEventListener('click', () => {
   }
   const reviews = loadReviews();
   const today = new Date().toISOString().slice(0, 10);
-  reviews.push({ name, role: role || 'Scout', stars: reviewRating, text, date: today });
+  reviews.push({ name, stars: reviewRating, text, date: today });
   saveReviews(reviews);
   renderReviews();
   closeReviewModal();
