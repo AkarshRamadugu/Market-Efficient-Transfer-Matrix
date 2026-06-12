@@ -1,0 +1,24 @@
+[project]
+name = "market-efficient-transfer-matrix"
+version = "1.0.0"
+description = "PSR Scouting Intelligence Dashboard utilizing PCA and Cosine Similarity"
+authors = [
+    {name = "Akarsh Ramadugu"}
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.mypy]
+strict = true
+
+[tool.pylint.messages_control]
+disable = ["C0111", "C0103"]
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+[tool.vulture]
+min_confidence = 80
+paths = ["backend"]
