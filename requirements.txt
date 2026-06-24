@@ -13,3 +13,4 @@ flake8
 semgrep
 ruff
 mypy
+httpx
